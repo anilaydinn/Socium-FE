@@ -59,7 +59,9 @@ const Header = () => {
             </Nav.Link>
           </Nav>
           <div className={classes.buttonsContainer}>
-            <Button className={classes.button}>Login</Button>
+            <Link className={classes.link} to={"/login"}>
+              <Button className={classes.button}>Login</Button>
+            </Link>
             <Button className={classes.button}>Register</Button>
           </div>
         </Navbar.Collapse>
