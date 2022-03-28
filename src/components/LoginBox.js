@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -80,9 +81,7 @@ const LoginBox = () => {
                     </div>
                   </form>
                   <div className="text-center mb-4">
-                    <a href="forgot-password.html" className="forgot-password">
-                      Forgot password?
-                    </a>
+                    <Link to={"/forgot-password"}>Forgot password?</Link>
                   </div>
                 </div>
               </div>
