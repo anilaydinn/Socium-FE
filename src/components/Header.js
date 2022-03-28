@@ -62,7 +62,9 @@ const Header = () => {
             <Link className={classes.link} to={"/login"}>
               <Button className={classes.button}>Login</Button>
             </Link>
-            <Button className={classes.button}>Register</Button>
+            <Link className={classes.link} to={"/register"}>
+              <Button className={classes.button}>Register</Button>
+            </Link>
           </div>
         </Navbar.Collapse>
       </Container>
