@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import RegisterBox from "../components/RegisterBox";
+import Footer from "../components/General/Footer";
+import Header from "../components/General/Header";
+import RegisterBox from "../components/Register/RegisterBox";
 
 const Register = () => {
   return (
