@@ -27,7 +27,7 @@ const Header = () => {
   return (
     <Navbar className="mt-4" bg="light" expand="lg">
       <Container>
-        <Navbar.Brand style={{ color: "#17a2b8" }} href="#">
+        <Navbar.Brand style={{ color: "#17a2b8" }} href="/">
           Socium
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />

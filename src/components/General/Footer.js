@@ -1,14 +1,21 @@
 import React from "react";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  footer: {
+    marginTop: "auto",
+  },
+});
 
 const Footer = () => {
+  const classes = useStyles();
+
   return (
-    <footer>
+    <footer className={classes.footer}>
       <div
         className="text-center p-4"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.05)",
-          position: "relative",
-          bottom: "0px",
           width: "100%",
         }}
       >
