@@ -7,7 +7,7 @@ const Footer = () => {
         className="text-center p-4"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.05)",
-          position: "absolute",
+          position: "relative",
           bottom: "0px",
           width: "100%",
         }}

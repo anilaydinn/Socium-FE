@@ -9,6 +9,7 @@ const Homepage = () => {
     <div>
       <Header />
       {true ? <HomeFeeds /> : <HomeBanner />}
+      <Footer />
     </div>
   );
 };
