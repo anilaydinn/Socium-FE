@@ -73,13 +73,13 @@ const ContactBox = () => {
                         />
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label class="col-md-3 control-label" for="message">
+                    <div className="form-group">
+                      <label className="col-md-3 control-label" for="message">
                         Your message
                       </label>
-                      <div class="col-md-9">
+                      <div className="col-md-9">
                         <textarea
-                          class="form-control"
+                          className="form-control"
                           id="message"
                           name="message"
                           placeholder="Please enter your message here..."
