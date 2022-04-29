@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Button } from "react-bootstrap";
+import { registerUser as registerUserApi } from "../../api";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -30,6 +31,28 @@ const useStyles = makeStyles({
 const RegisterBox = () => {
   const classes = useStyles();
 
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const resp = await registerUserApi({
+      name,
+      surname,
+      email,
+      password,
+      rePassword,
+    });
+    if (resp) {
+      alert("Successfully registered!");
+    } else {
+      alert("Failed to register!");
+    }
+  };
+
   return (
     <div className="container bootstrap snippets bootdey">
       <div className="row justify-content-center ng-scope">
@@ -40,12 +63,12 @@ const RegisterBox = () => {
               <div className="row pv-lg">
                 <div className="col-lg-2"></div>
                 <div className="col-lg-8">
-                  <form className="form-horizontal ng-pristine ng-valid">
+                  <form
+                    onSubmit={(e) => handleRegister(e)}
+                    className="form-horizontal ng-pristine ng-valid"
+                  >
                     <div className="form-group">
-                      <label
-                        className="col-sm-2 control-label"
-                        for="inputContact2"
-                      >
+                      <label className="col-sm-2 control-label" htmlFor="name">
                         Name
                       </label>
                       <div className="col-sm-10">
@@ -54,13 +77,15 @@ const RegisterBox = () => {
                           name="name"
                           id="name"
                           type="text"
+                          required
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
                     </div>
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
-                        for="inputContact3"
+                        htmlFor="surname"
                       >
                         Surname
                       </label>
@@ -68,31 +93,32 @@ const RegisterBox = () => {
                         <input
                           className="form-control"
                           name="surname"
-                          id="inputContact3"
+                          id="surname"
                           type="text"
+                          required
+                          onChange={(e) => setSurname(e.target.value)}
                         />
                       </div>
                     </div>
                     <div className="form-group">
-                      <label
-                        className="col-sm-2 control-label"
-                        for="inputContact3"
-                      >
+                      <label className="col-sm-2 control-label" htmlFor="email">
                         Email
                       </label>
                       <div className="col-sm-10">
                         <input
                           className="form-control"
                           name="email"
-                          id="inputContact3"
+                          id="email"
                           type="email"
+                          required
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
                     </div>
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
-                        for="inputContact3"
+                        htmlFor="password"
                       >
                         Password
                       </label>
@@ -100,15 +126,17 @@ const RegisterBox = () => {
                         <input
                           className="form-control"
                           name="email"
-                          id="inputContact3"
+                          id="password"
                           type="password"
+                          required
+                          onChange={(e) => setPassword(e.target.value)}
                         />
                       </div>
                     </div>
                     <div className="form-group">
                       <label
                         className="col-sm-4 control-label"
-                        for="inputContact3"
+                        htmlFor="re-password"
                       >
                         Re-Password
                       </label>
@@ -116,14 +144,18 @@ const RegisterBox = () => {
                         <input
                           className="form-control"
                           name="email"
-                          id="inputContact3"
+                          id="re-password"
                           type="password"
+                          required
+                          onChange={(e) => setRePassword(e.target.value)}
                         />
                       </div>
                     </div>
                     <div className="form-group mt-4 mb-4">
                       <div className="col-sm-offset-2 col-sm-10">
-                        <Button className={classes.button}>Register</Button>
+                        <Button type="submit" className={classes.button}>
+                          Register
+                        </Button>
                       </div>
                     </div>
                   </form>
