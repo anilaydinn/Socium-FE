@@ -2,7 +2,7 @@ import axios from "axios";
 
 const registerUser = async (user) => {
   const response = await axios.post(
-    "http://localhost:8080/register",
+    "http://localhost:8080/api/register",
     {
       email: user.email,
       password: user.password,
@@ -24,7 +24,7 @@ const registerUser = async (user) => {
 
 const loginUser = async (email, password) => {
   const response = await axios.post(
-    "http://localhost:8080/login",
+    "http://localhost:8080/api/login",
     {
       email: email,
       password: password,
@@ -42,14 +42,14 @@ const loginUser = async (email, password) => {
 };
 
 const forgotPassword = async (email) => {
-  await axios.post("http://localhost:8080/forgotPassword", {
+  await axios.post("http://localhost:8080/api/forgotPassword", {
     email: email,
   });
 };
 
 const resetPassword = async (id, password) => {
   await axios.patch(
-    `http://localhost:8080/resetPassword/${id}`,
+    `http://localhost:8080/api/resetPassword/${id}`,
     {
       password: password,
     },
