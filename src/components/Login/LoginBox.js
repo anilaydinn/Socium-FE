@@ -41,6 +41,7 @@ const LoginBox = () => {
     const resp = await loginUserApi(email, password);
     if (resp) {
       setCookie("user-token", resp.token, 1);
+      window.location.href = "/";
     } else {
       alert("Failed to login!");
     }

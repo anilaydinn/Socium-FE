@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
+import { isLogin } from "../../helpers/helpers";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -58,14 +59,16 @@ const Header = () => {
               </Link>
             </Nav.Link>
           </Nav>
-          <div className={classes.buttonsContainer}>
-            <Link className={classes.link} to={"/login"}>
-              <Button className={classes.button}>Login</Button>
-            </Link>
-            <Link className={classes.link} to={"/register"}>
-              <Button className={classes.button}>Register</Button>
-            </Link>
-          </div>
+          {!isLogin() && (
+            <div className={classes.buttonsContainer}>
+              <Link className={classes.link} to={"/login"}>
+                <Button className={classes.button}>Login</Button>
+              </Link>
+              <Link className={classes.link} to={"/register"}>
+                <Button className={classes.button}>Register</Button>
+              </Link>
+            </div>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
