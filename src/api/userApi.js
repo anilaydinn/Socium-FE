@@ -47,4 +47,21 @@ const forgotPassword = async (email) => {
   });
 };
 
-export { registerUser, loginUser, forgotPassword };
+const resetPassword = async (id, password) => {
+  await axios.patch(
+    `http://localhost:8080/resetPassword/${id}`,
+    {
+      password: password,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+      },
+    }
+  );
+};
+
+export { registerUser, loginUser, forgotPassword, resetPassword };

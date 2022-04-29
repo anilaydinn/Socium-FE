@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import About from "./pages/About";
 import Profile from "./pages/Profile";
 import Contact from "./pages/Contact";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/reset-password/:id" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </div>
