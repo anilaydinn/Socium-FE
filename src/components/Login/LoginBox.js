@@ -63,7 +63,7 @@ const LoginBox = () => {
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
-                        for="inputContact2"
+                        htmlFor="inputContact2"
                       >
                         Email
                       </label>
@@ -80,7 +80,7 @@ const LoginBox = () => {
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
-                        for="inputContact3"
+                        htmlFor="inputContact3"
                       >
                         Password
                       </label>

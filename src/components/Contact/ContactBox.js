@@ -44,7 +44,7 @@ const ContactBox = () => {
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
-                        for="inputContact2"
+                        htmlor="inputContact2"
                       >
                         Name
                       </label>
@@ -60,7 +60,7 @@ const ContactBox = () => {
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
-                        for="inputContact2"
+                        htmlFor="inputContact2"
                       >
                         Email
                       </label>
@@ -74,7 +74,10 @@ const ContactBox = () => {
                       </div>
                     </div>
                     <div className="form-group">
-                      <label className="col-md-3 control-label" for="message">
+                      <label
+                        className="col-md-3 control-label"
+                        htmlFor="message"
+                      >
                         Your message
                       </label>
                       <div className="col-md-9">

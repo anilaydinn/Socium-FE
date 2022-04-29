@@ -44,7 +44,7 @@ const ForgotPasswordBox = () => {
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
-                        for="inputContact2"
+                        htmlFor="inputContact2"
                       >
                         Email
                       </label>
