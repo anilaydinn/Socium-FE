@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "../components/General/Footer";
 import Header from "../components/General/Header";
 import LoginBox from "../components/Login/LoginBox";
 
@@ -8,7 +7,6 @@ const Login = () => {
     <div>
       <Header />
       <LoginBox />
-      <Footer />
     </div>
   );
 };

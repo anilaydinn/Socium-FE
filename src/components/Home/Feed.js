@@ -48,11 +48,11 @@ const useStyles = makeStyles({
   },
 });
 
-const Feed = () => {
+const Feed = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={`col-md-6 ${classes.gridMargin}`}>
+    <div className={`col-md-${props.col} ${classes.gridMargin}`}>
       <div className={`${classes.card} ${classes.rounded}`}>
         <div className={`${classes.cardHeader}`}>
           <div className="d-flex align-items-center justify-content-between">
@@ -64,7 +64,7 @@ const Feed = () => {
               />
               <div className="ml-2">
                 <p>Mike Popescu</p>
-                <p class="tx-11 text-muted">1 min ago</p>
+                <p className="tx-11 text-muted">1 min ago</p>
               </div>
             </div>
           </div>
@@ -105,7 +105,7 @@ const Feed = () => {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <form role="form" class="post-to-timeline mb-3">
+            <form role="form" className="post-to-timeline mb-3">
               <textarea
                 className="form-control"
                 style={{ height: "70px", marginBottom: "10px" }}

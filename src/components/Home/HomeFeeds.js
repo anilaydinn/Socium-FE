@@ -11,7 +11,7 @@ const HomeFeeds = () => {
   return (
     <div className="row justify-content-center mt-3">
       <CreateFeed />
-      <Feed />
+      <Feed col="6" />
     </div>
   );
 };
