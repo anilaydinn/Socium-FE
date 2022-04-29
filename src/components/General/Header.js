@@ -3,6 +3,7 @@ import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { isLogin } from "../../helpers/helpers";
+import { useCookies } from "react-cookie";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -21,10 +22,21 @@ const useStyles = makeStyles({
       color: "unset",
     },
   },
+  logoutButtonContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
 });
 
 const Header = () => {
   const classes = useStyles();
+  const [cookies, setCookie, removeCookie] = useCookies(["user-token"]);
+
+  const handleLogout = () => {
+    removeCookie("user-token");
+    window.location.href = "/";
+  };
+
   return (
     <Navbar className="mt-4" bg="light" expand="lg">
       <Container>
@@ -59,7 +71,7 @@ const Header = () => {
               </Link>
             </Nav.Link>
           </Nav>
-          {!isLogin() && (
+          {!isLogin() ? (
             <div className={classes.buttonsContainer}>
               <Link className={classes.link} to={"/login"}>
                 <Button className={classes.button}>Login</Button>
@@ -67,6 +79,15 @@ const Header = () => {
               <Link className={classes.link} to={"/register"}>
                 <Button className={classes.button}>Register</Button>
               </Link>
+            </div>
+          ) : (
+            <div className={classes.logoutButtonContainer}>
+              <Button
+                onClick={() => handleLogout()}
+                className={`btn btn-sm ${classes.button}`}
+              >
+                Logout
+              </Button>
             </div>
           )}
         </Navbar.Collapse>
