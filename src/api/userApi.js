@@ -22,4 +22,23 @@ const registerUser = async (user) => {
   return response.status === 201 ? response.data : null;
 };
 
-export { registerUser };
+const loginUser = async (email, password) => {
+  const response = await axios.post(
+    "http://localhost:8080/login",
+    {
+      email: email,
+      password: password,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+      },
+    }
+  );
+  return response.status === 200 ? response.data : null;
+};
+
+export { registerUser, loginUser };

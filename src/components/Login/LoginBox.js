@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { loginUser as loginUserApi } from "../../api";
+import { setCookie } from "../../helpers/helpers";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -31,6 +33,19 @@ const useStyles = makeStyles({
 const LoginBox = () => {
   const classes = useStyles();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const resp = await loginUserApi(email, password);
+    if (resp) {
+      setCookie("user-token", resp.token, 1);
+    } else {
+      alert("Failed to login!");
+    }
+  };
+
   return (
     <div className="container bootstrap snippets bootdey">
       <div className="row justify-content-center ng-scope">
@@ -41,7 +56,10 @@ const LoginBox = () => {
               <div className="row pv-lg">
                 <div className="col-lg-2"></div>
                 <div className="col-lg-8">
-                  <form className="form-horizontal ng-pristine ng-valid">
+                  <form
+                    onSubmit={(e) => handleLogin(e)}
+                    className="form-horizontal ng-pristine ng-valid"
+                  >
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
@@ -55,6 +73,7 @@ const LoginBox = () => {
                           name="email"
                           id="email"
                           type="email"
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
                     </div>
@@ -71,12 +90,15 @@ const LoginBox = () => {
                           name="password"
                           id="inputContact3"
                           type="text"
+                          onChange={(e) => setPassword(e.target.value)}
                         />
                       </div>
                     </div>
                     <div className="form-group mt-4">
                       <div className="col-sm-offset-2 col-sm-10">
-                        <Button className={classes.button}>Login</Button>
+                        <Button type="submit" className={classes.button}>
+                          Login
+                        </Button>
                       </div>
                     </div>
                   </form>
