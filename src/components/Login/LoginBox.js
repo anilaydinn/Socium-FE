@@ -90,7 +90,7 @@ const LoginBox = () => {
                           className="form-control"
                           name="password"
                           id="inputContact3"
-                          type="text"
+                          type="password"
                           onChange={(e) => setPassword(e.target.value)}
                         />
                       </div>
