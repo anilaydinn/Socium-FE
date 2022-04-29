@@ -41,4 +41,10 @@ const loginUser = async (email, password) => {
   return response.status === 200 ? response.data : null;
 };
 
-export { registerUser, loginUser };
+const forgotPassword = async (email) => {
+  await axios.post("http://localhost:8080/forgotPassword", {
+    email: email,
+  });
+};
+
+export { registerUser, loginUser, forgotPassword };

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Button } from "react-bootstrap";
+import { forgotPassword as forgotPasswordApi } from "../../api/userApi";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -30,6 +31,13 @@ const useStyles = makeStyles({
 const ForgotPasswordBox = () => {
   const classes = useStyles();
 
+  const [email, setEmail] = useState("");
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    await forgotPasswordApi(email);
+  };
+
   return (
     <div className="container bootstrap snippets bootdey">
       <div className="row justify-content-center ng-scope">
@@ -40,7 +48,10 @@ const ForgotPasswordBox = () => {
               <div className="row pv-lg">
                 <div className="col-lg-2"></div>
                 <div className="col-lg-8">
-                  <form className="form-horizontal ng-pristine ng-valid">
+                  <form
+                    onSubmit={(e) => handleForgotPassword(e)}
+                    className="form-horizontal ng-pristine ng-valid"
+                  >
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
@@ -54,12 +65,15 @@ const ForgotPasswordBox = () => {
                           name="email"
                           id="email"
                           type="email"
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
                     </div>
                     <div className="form-group mt-4">
                       <div className="col-sm-offset-2 col-sm-10 mb-4">
-                        <Button className={classes.button}>Send</Button>
+                        <Button type="submit" className={classes.button}>
+                          Send
+                        </Button>
                       </div>
                     </div>
                   </form>
