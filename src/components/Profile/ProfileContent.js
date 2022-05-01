@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import "../../style/profile.css";
 import Feed from "../Home/Feed";
+import CreateFeed from "../Home/CreateFeed";
+import { isLogin } from "../../helpers/helpers";
 
 const useStyles = makeStyles({
   link: {
@@ -229,6 +231,7 @@ const ProfileContent = () => {
           </div>
           <div className="col-md-8 col-xl-6 middle-wrapper">
             <div className="row">
+              {isLogin() && <CreateFeed col="12" />}
               <Feed col="12" />
               <Feed col="12" />
             </div>

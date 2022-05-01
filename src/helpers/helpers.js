@@ -1,3 +1,5 @@
+import jwtdecode from "jwt-decode";
+
 const getCookie = (cname) => {
   let name = cname + "=";
   let ca = document.cookie.split(";");
@@ -46,4 +48,16 @@ function isAdminUser(token) {
   return jsonPayload.userType === "admin";
 }
 
-export { getCookie, isLogin, setCookie, generateBearerToken, isAdminUser };
+const getUserId = () => {
+  const parsedToken = jwtdecode(getCookie("user-token"));
+  return parsedToken.iss;
+};
+
+export {
+  getCookie,
+  isLogin,
+  setCookie,
+  generateBearerToken,
+  isAdminUser,
+  getUserId,
+};
