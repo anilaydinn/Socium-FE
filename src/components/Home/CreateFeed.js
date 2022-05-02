@@ -44,7 +44,7 @@ const CreateFeed = (props) => {
   };
 
   return (
-    <div className="row justify-content-center mt-3">
+    <div className="row justify-content-center mt-3 pe-0">
       <div className={`col-md-${props.col} grid-margin`}>
         <form
           onSubmit={(e) => handlePostSubmit(e)}

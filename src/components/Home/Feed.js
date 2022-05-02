@@ -52,7 +52,7 @@ const Feed = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={`col-md-${props.col} ${classes.gridMargin}`}>
+    <div className={`col-md-${props.col} mx-auto ${classes.gridMargin}`}>
       <div className={`${classes.card} ${classes.rounded}`}>
         <div className={`${classes.cardHeader}`}>
           <div className="d-flex align-items-center justify-content-between">
@@ -63,17 +63,16 @@ const Feed = (props) => {
                 alt=""
               />
               <div className="ml-2">
-                <p>Mike Popescu</p>
-                <p className="tx-11 text-muted">1 min ago</p>
+                <p>
+                  {props.feed.user.name} {props.feed.user.surname}
+                </p>
+                <p className="tx-11 text-muted">{props.feed.createdAt}</p>
               </div>
             </div>
           </div>
         </div>
         <div className="card-body">
-          <p className="mb-3 tx-14">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-            minima delectus nemo unde quae recusandae assumenda.
-          </p>
+          <p className="mb-3 tx-14">{props.feed.description}</p>
           <img
             className="img-fluid"
             src="https://bootdey.com/img/Content/avatar/avatar6.png"

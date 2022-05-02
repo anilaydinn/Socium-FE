@@ -6,7 +6,9 @@ import createStore from "./helpers/createStore";
 import App from "./App";
 
 const store = createStore({
-  user: {},
+  post: {
+    feeds: [],
+  },
 });
 
 ReactDOM.render(

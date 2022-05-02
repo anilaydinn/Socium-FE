@@ -1,1 +1,1 @@
-export const SET_SOMETHING = "SET_SOMETHING";
+export const SET_HOMEPAGE_FEEDS = "SET_HOMEPAGE_FEEDS";

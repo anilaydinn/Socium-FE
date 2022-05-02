@@ -17,4 +17,19 @@ const createPost = async (post) => {
   return response.status === 201 ? response.data : null;
 };
 
-export { createPost };
+const getPosts = async () => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.get("http://localhost:8080/user/posts", {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers":
+        "Origin, X-Requested-With, Content-Type, Accept",
+      Authorization: bearerToken,
+    },
+  });
+
+  return response.status === 200 ? response.data : null;
+};
+
+export { createPost, getPosts };
