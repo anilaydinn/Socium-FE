@@ -1,8 +1,10 @@
 import { Button } from "react-bootstrap";
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { createPost } from "../../api";
 import { getUserId } from "../../helpers/helpers";
+import { fetchPosts } from "../../redux/actions/postActions";
 
 const useStyles = makeStyles({
   button: {
@@ -15,6 +17,7 @@ const useStyles = makeStyles({
 });
 
 const CreateFeed = (props) => {
+  const { fetchPosts } = props;
   const classes = useStyles();
 
   const [description, setDescription] = useState("");
@@ -34,13 +37,12 @@ const CreateFeed = (props) => {
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
-    const post = await createPost({
+    await createPost({
       image: image,
       description: description,
       userId: getUserId(),
     });
-
-    console.log(post);
+    fetchPosts();
   };
 
   return (
@@ -95,4 +97,12 @@ const CreateFeed = (props) => {
   );
 };
 
-export default CreateFeed;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPosts: () => dispatch(fetchPosts()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateFeed);

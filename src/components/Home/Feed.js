@@ -73,11 +73,7 @@ const Feed = (props) => {
         </div>
         <div className="card-body">
           <p className="mb-3 tx-14">{props.feed.description}</p>
-          <img
-            className="img-fluid"
-            src="https://bootdey.com/img/Content/avatar/avatar6.png"
-            alt=""
-          />
+          <img className="img-fluid" src={props.feed.image} alt="" />
         </div>
         <div className={`${classes.cardFooter}`}>
           <div className="d-flex post-actions">
