@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import "../../style/profile.css";
 import Feed from "../Home/Feed";
 import CreateFeed from "../Home/CreateFeed";
-import { isLogin } from "../../helpers/helpers";
+import { getUserId, isLogin } from "../../helpers/helpers";
+import { fetchUserPosts } from "../../redux/actions/postActions";
 
 const useStyles = makeStyles({
   link: {
@@ -20,8 +22,13 @@ const useStyles = makeStyles({
   },
 });
 
-const ProfileContent = () => {
+const ProfileContent = (props) => {
+  const { fetchUserPosts, userFeeds } = props;
   const classes = useStyles();
+
+  useEffect(() => {
+    fetchUserPosts(getUserId());
+  }, []);
 
   return (
     <div className="container mb-5">
@@ -232,8 +239,8 @@ const ProfileContent = () => {
           <div className="col-md-8 col-xl-6 middle-wrapper">
             <div className="row">
               {isLogin() && <CreateFeed col="12" />}
-              <Feed col="12" />
-              <Feed col="12" />
+              {userFeeds &&
+                userFeeds.map((feed) => <Feed col="12" feed={feed} />)}
             </div>
           </div>
           <div className="d-none d-xl-block col-xl-3 right-wrapper">
@@ -477,4 +484,14 @@ const ProfileContent = () => {
   );
 };
 
-export default ProfileContent;
+const mapStateToProps = (state) => ({
+  userFeeds: state.post.userFeeds,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUserPosts: (userId) => dispatch(fetchUserPosts(userId)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileContent);

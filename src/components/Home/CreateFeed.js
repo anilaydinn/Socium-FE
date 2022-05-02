@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { createPost } from "../../api";
 import { getUserId } from "../../helpers/helpers";
-import { fetchPosts } from "../../redux/actions/postActions";
+import { fetchPosts, fetchUserPosts } from "../../redux/actions/postActions";
 
 const useStyles = makeStyles({
   button: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 const CreateFeed = (props) => {
-  const { fetchPosts } = props;
+  const { fetchPosts, fetchUserPosts } = props;
   const classes = useStyles();
 
   const [description, setDescription] = useState("");
@@ -43,6 +43,7 @@ const CreateFeed = (props) => {
       userId: getUserId(),
     });
     fetchPosts();
+    fetchUserPosts(getUserId());
   };
 
   return (
@@ -102,6 +103,7 @@ const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPosts: () => dispatch(fetchPosts()),
+    fetchUserPosts: (userId) => dispatch(fetchUserPosts(userId)),
   };
 };
 

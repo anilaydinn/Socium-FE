@@ -8,6 +8,7 @@ import App from "./App";
 const store = createStore({
   post: {
     feeds: [],
+    userFeeds: [],
   },
 });
 
