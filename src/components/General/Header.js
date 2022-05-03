@@ -55,11 +55,13 @@ const Header = () => {
                 Home
               </Link>
             </Nav.Link>
-            <Nav.Link>
-              <Link className={classes.link} to="/profile">
-                Profile
-              </Link>
-            </Nav.Link>
+            {isLogin() && (
+              <Nav.Link>
+                <Link className={classes.link} to="/profile">
+                  Profile
+                </Link>
+              </Nav.Link>
+            )}
             <Nav.Link>
               <Link className={classes.link} to={"/about"}>
                 About
