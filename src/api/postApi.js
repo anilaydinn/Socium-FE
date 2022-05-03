@@ -49,4 +49,25 @@ const getUserPosts = async (userId) => {
   return response.status === 200 ? response.data : null;
 };
 
-export { createPost, getPosts, getUserPosts };
+const likePost = async (postId, userId) => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.patch(
+    `http://localhost:8080/user/posts/${postId}/like`,
+    {
+      userId: userId,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
+export { createPost, getPosts, getUserPosts, likePost };

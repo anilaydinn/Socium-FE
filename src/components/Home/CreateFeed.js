@@ -65,7 +65,7 @@ const CreateFeed = (props) => {
             <div className="col-sm-3 d-flex">
               <input
                 type="file"
-                class="form-control-file"
+                className="form-control-file"
                 id="postImage"
                 hidden={true}
                 onChange={(e) => handleOnloadCoverImage(e)}

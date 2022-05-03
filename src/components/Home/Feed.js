@@ -1,6 +1,10 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
+import { likePost } from "../../api";
+import { getUserId } from "../../helpers/helpers";
+import { fetchPosts, fetchUserPosts } from "../../redux/actions/postActions";
 
 const useStyles = makeStyles({
   gridMargin: {
@@ -51,6 +55,12 @@ const useStyles = makeStyles({
 const Feed = (props) => {
   const classes = useStyles();
 
+  const handleLikePost = async () => {
+    const resp = await likePost(props.feed.id, getUserId());
+    props.fetchPosts();
+    props.fetchUserPosts(getUserId());
+  };
+
   return (
     <div className={`col-md-${props.col} mx-auto ${classes.gridMargin}`}>
       <div className={`${classes.card} ${classes.rounded}`}>
@@ -80,6 +90,14 @@ const Feed = (props) => {
             <a
               href="javascript:;"
               className="d-flex align-items-center text-muted mr-5"
+              onClick={() => handleLikePost()}
+              style={{
+                backgroundColor:
+                  props.feed.whoLikesUserIds &&
+                  props.feed.whoLikesUserIds.includes(getUserId())
+                    ? "red"
+                    : "white",
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -121,4 +139,13 @@ const Feed = (props) => {
   );
 };
 
-export default Feed;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPosts: () => dispatch(fetchPosts()),
+    fetchUserPosts: (userId) => dispatch(fetchUserPosts(userId)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);
