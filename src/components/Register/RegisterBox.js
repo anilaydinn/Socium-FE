@@ -47,9 +47,7 @@ const RegisterBox = () => {
       rePassword,
     });
     if (resp) {
-      alert("Successfully registered!");
-    } else {
-      alert("Failed to register!");
+      window.location.href = "/login";
     }
   };
 
