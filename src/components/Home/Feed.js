@@ -53,16 +53,17 @@ const useStyles = makeStyles({
 });
 
 const Feed = (props) => {
+  const { col, feed, fetchPosts, fetchUserPosts } = props;
   const classes = useStyles();
 
   const handleLikePost = async () => {
-    const resp = await likePost(props.feed.id, getUserId());
-    props.fetchPosts();
-    props.fetchUserPosts(getUserId());
+    const resp = await likePost(feed.id, getUserId());
+    fetchPosts();
+    fetchUserPosts(getUserId());
   };
 
   return (
-    <div className={`col-md-${props.col} mx-auto ${classes.gridMargin}`}>
+    <div className={`col-md-${col} mx-auto ${classes.gridMargin}`}>
       <div className={`${classes.card} ${classes.rounded}`}>
         <div className={`${classes.cardHeader}`}>
           <div className="d-flex align-items-center justify-content-between">
@@ -74,27 +75,29 @@ const Feed = (props) => {
               />
               <div className="ml-2">
                 <p>
-                  {props.feed.user.name} {props.feed.user.surname}
+                  {feed.user.name} {feed.user.surname}
                 </p>
-                <p className="tx-11 text-muted">{props.feed.createdAt}</p>
+                <p className="tx-11 text-muted">{feed.createdAt}</p>
               </div>
             </div>
           </div>
         </div>
         <div className="card-body">
-          <p className="mb-3 tx-14">{props.feed.description}</p>
-          <img className="img-fluid" src={props.feed.image} alt="" />
+          <p className="mb-3 tx-14">{feed.description}</p>
+          <img className="img-fluid" src={feed.image} alt="" />
         </div>
         <div className={`${classes.cardFooter}`}>
           <div className="d-flex post-actions">
+            {feed.whoLikesUserIds && feed.whoLikesUserIds.length}
             <a
               href="javascript:;"
               className="d-flex align-items-center text-muted mr-5"
               onClick={() => handleLikePost()}
               style={{
+                marginLeft: "5px",
                 backgroundColor:
-                  props.feed.whoLikesUserIds &&
-                  props.feed.whoLikesUserIds.includes(getUserId())
+                  feed.whoLikesUserIds &&
+                  feed.whoLikesUserIds.includes(getUserId())
                     ? "red"
                     : "white",
               }}
