@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
-import { likePost } from "../../api";
+import { likePost, sendCommentToPost } from "../../api";
 import { getUserId } from "../../helpers/helpers";
 import { fetchPosts, fetchUserPosts } from "../../redux/actions/postActions";
 
@@ -56,10 +56,19 @@ const Feed = (props) => {
   const { col, feed, fetchPosts, fetchUserPosts } = props;
   const classes = useStyles();
 
+  const [content, setContent] = useState("");
+
   const handleLikePost = async () => {
     const resp = await likePost(feed.id, getUserId());
     fetchPosts();
     fetchUserPosts(getUserId());
+  };
+
+  const handleSendComment = async (e) => {
+    e.preventDefault();
+    await sendCommentToPost(feed.id, content);
+    setContent("");
+    fetchPosts();
   };
 
   return (
@@ -90,7 +99,6 @@ const Feed = (props) => {
           <div className="d-flex post-actions">
             {feed.whoLikesUserIds && feed.whoLikesUserIds.length}
             <a
-              href="javascript:;"
               className="d-flex align-items-center text-muted mr-5"
               onClick={() => handleLikePost()}
               style={{
@@ -120,12 +128,45 @@ const Feed = (props) => {
           </div>
         </div>
         <div className="row">
+          {feed.comments &&
+            feed.comments.map((comment) => (
+              <div className="col-md-12">
+                <div className="card mb-3">
+                  <div className="row g-0">
+                    {comment.user.image && (
+                      <div className="col-md-4">
+                        <img src="" className="img-fluid rounded-start" />
+                      </div>
+                    )}
+                    <div className="col-md-8">
+                      <div className="card-body">
+                        <h6 className="card-title">
+                          {`${comment.user.name}  ${comment.user.surname}`}
+                        </h6>
+                        <p className="card-text">{comment.content}</p>
+                        <p className="card-text">
+                          <small className="text-muted">
+                            {comment.createdAt}
+                          </small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           <div className="col-md-12">
-            <form role="form" className="post-to-timeline mb-3">
+            <form
+              onSubmit={(e) => handleSendComment(e)}
+              role="form"
+              className="post-to-timeline mb-3"
+            >
               <textarea
                 className="form-control"
                 style={{ height: "70px", marginBottom: "10px" }}
                 placeholder="Whats on your mind..."
+                onChange={(e) => setContent(e.target.value)}
+                value={content}
               ></textarea>
               <div className="row justify-content-end">
                 <div className="col-auto">

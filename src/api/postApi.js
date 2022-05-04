@@ -1,5 +1,5 @@
 import axios from "axios";
-import { generateBearerToken } from "../helpers/helpers";
+import { generateBearerToken, getUserId } from "../helpers/helpers";
 
 const createPost = async (post) => {
   const bearerToken = generateBearerToken();
@@ -70,4 +70,26 @@ const likePost = async (postId, userId) => {
   return response.status === 200 ? response.data : null;
 };
 
-export { createPost, getPosts, getUserPosts, likePost };
+const sendCommentToPost = async (postId, content) => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.post(
+    `http://localhost:8080/user/posts/${postId}/comments`,
+    {
+      userId: getUserId(),
+      content: content,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 201 ? response.data : null;
+};
+
+export { createPost, getPosts, getUserPosts, likePost, sendCommentToPost };
