@@ -7,6 +7,7 @@ import Feed from "../Home/Feed";
 import CreateFeed from "../Home/CreateFeed";
 import { getUserId, isLogin } from "../../helpers/helpers";
 import { fetchUserPosts } from "../../redux/actions/postActions";
+import { fetchUser } from "../../redux/actions/userActions";
 
 const useStyles = makeStyles({
   link: {
@@ -23,11 +24,12 @@ const useStyles = makeStyles({
 });
 
 const ProfileContent = (props) => {
-  const { fetchUserPosts, userFeeds } = props;
+  const { fetchUserPosts, userFeeds, fetchUser, user } = props;
   const classes = useStyles();
 
   useEffect(() => {
     fetchUserPosts(getUserId());
+    fetchUser(getUserId());
   }, []);
 
   return (
@@ -54,24 +56,26 @@ const ProfileContent = (props) => {
                     <span className="profile-name">Amiah Burton</span>
                   </div>
                   <div className="d-none d-md-block">
-                    <button className="btn btn-info btn-icon-text btn-edit-profile text-white">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        className="feather feather-edit btn-icon-prepend"
-                      >
-                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                      </svg>
-                      Edit profile
-                    </button>
+                    <Link to={"/profile/edit"} className={classes.link}>
+                      <button className="btn btn-info btn-icon-text btn-edit-profile text-white">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          className="feather feather-edit btn-icon-prepend"
+                        >
+                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                        Edit profile
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -219,7 +223,7 @@ const ProfileContent = (props) => {
                   <label className="tx-11 font-weight-bold mb-0 text-uppercase">
                     Joined:
                   </label>
-                  <p className="text-muted">November 15, 2015</p>
+                  <p className="text-muted">{user && user.createdAt}</p>
                 </div>
                 <div className="mt-3">
                   <label className="tx-11 font-weight-bold mb-0 text-uppercase">
@@ -231,7 +235,7 @@ const ProfileContent = (props) => {
                   <label className="tx-11 font-weight-bold mb-0 text-uppercase">
                     Email:
                   </label>
-                  <p className="text-muted">me@nobleui.com</p>
+                  <p className="text-muted">{user && user.email}</p>
                 </div>
               </div>
             </div>
@@ -240,7 +244,9 @@ const ProfileContent = (props) => {
             <div className="row">
               {isLogin() && <CreateFeed col="12" />}
               {userFeeds &&
-                userFeeds.map((feed) => <Feed col="12" feed={feed} />)}
+                userFeeds.map((feed) => (
+                  <Feed key={feed.id} col="12" feed={feed} />
+                ))}
             </div>
           </div>
           <div className="d-none d-xl-block col-xl-3 right-wrapper">
@@ -486,11 +492,13 @@ const ProfileContent = (props) => {
 
 const mapStateToProps = (state) => ({
   userFeeds: state.post.userFeeds,
+  user: state.user.user,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUserPosts: (userId) => dispatch(fetchUserPosts(userId)),
+    fetchUser: (userId) => dispatch(fetchUser(userId)),
   };
 };
 

@@ -64,4 +64,19 @@ const resetPassword = async (id, password) => {
   );
 };
 
-export { registerUser, loginUser, forgotPassword, resetPassword };
+const getUser = async (userId) => {
+  const response = await axios.get(
+    `http://localhost:8080/api/users/${userId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+      },
+    }
+  );
+  return response.status === 200 ? response.data : null;
+};
+
+export { registerUser, loginUser, forgotPassword, resetPassword, getUser };
