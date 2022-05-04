@@ -57,6 +57,7 @@ const Feed = (props) => {
   const classes = useStyles();
 
   const [content, setContent] = useState("");
+  const [isSeeMore, setIsSeeMore] = useState(false);
 
   const handleLikePost = async () => {
     const resp = await likePost(feed.id, getUserId());
@@ -128,33 +129,29 @@ const Feed = (props) => {
           </div>
         </div>
         <div className="row">
-          {feed.comments &&
-            feed.comments.map((comment) => (
-              <div className="col-md-12">
-                <div className="card mb-3">
-                  <div className="row g-0">
-                    {comment.user.image && (
-                      <div className="col-md-4">
-                        <img src="" className="img-fluid rounded-start" />
-                      </div>
-                    )}
-                    <div className="col-md-8">
-                      <div className="card-body">
-                        <h6 className="card-title">
-                          {`${comment.user.name}  ${comment.user.surname}`}
-                        </h6>
-                        <p className="card-text">{comment.content}</p>
-                        <p className="card-text">
-                          <small className="text-muted">
-                            {comment.createdAt}
-                          </small>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {feed.comments && (
+            <DynamicComments feed={feed} isSeeMore={isSeeMore} />
+          )}
+          {feed.comments && feed.comments.length > 3 && !isSeeMore && (
+            <div className="col-md-3 d-flex mx-auto mb-2">
+              <Button
+                className={`btn ${classes.button}`}
+                onClick={() => setIsSeeMore(true)}
+              >
+                See more
+              </Button>
+            </div>
+          )}
+          {feed.comments && feed.comments.length > 3 && isSeeMore && (
+            <div className="col-md-3 d-flex mx-auto mb-2">
+              <Button
+                className={`btn ${classes.button}`}
+                onClick={() => setIsSeeMore(false)}
+              >
+                See less
+              </Button>
+            </div>
+          )}
           <div className="col-md-12">
             <form
               onSubmit={(e) => handleSendComment(e)}
@@ -181,6 +178,72 @@ const Feed = (props) => {
       </div>
     </div>
   );
+};
+
+const DynamicComments = (props) => {
+  const { feed, isSeeMore } = props;
+
+  let componentArr = [];
+  if (feed.comments && feed.comments.length > 3 && !isSeeMore) {
+    for (let i = 0; i < 3; i++) {
+      componentArr.push(
+        <div key={feed.comments[i].id} className="col-md-12">
+          <div className="card mb-3">
+            <div className="row g-0">
+              {feed.comments[i].user.image && (
+                <div className="col-md-4">
+                  <img src="" className="img-fluid rounded-start" />
+                </div>
+              )}
+              <div className="col-md-8">
+                <div className="card-body">
+                  <h6 className="card-title">
+                    {`${feed.comments[i].user.name}  ${feed.comments[i].user.surname} 111`}
+                  </h6>
+                  <p className="card-text">{feed.comments[i].content}</p>
+                  <p className="card-text">
+                    <small className="text-muted">
+                      {feed.comments[i].createdAt}
+                    </small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return componentArr;
+  } else if (isSeeMore) {
+    return (
+      feed.comments &&
+      feed.comments.map((comment) => (
+        <div key={comment.id} className="col-md-12">
+          <div className="card mb-3">
+            <div className="row g-0">
+              {comment.user.image && (
+                <div className="col-md-4">
+                  <img src="" className="img-fluid rounded-start" />
+                </div>
+              )}
+              <div className="col-md-8">
+                <div className="card-body">
+                  <h6 className="card-title">
+                    {`${comment.user.name}  ${comment.user.surname}`} 111
+                  </h6>
+                  <p className="card-text">{comment.content}</p>
+                  <p className="card-text">
+                    <small className="text-muted">{comment.createdAt}</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    );
+  }
+  return null;
 };
 
 const mapStateToProps = (state) => ({});
