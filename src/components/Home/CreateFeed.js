@@ -37,13 +37,16 @@ const CreateFeed = (props) => {
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
-    await createPost({
-      image: image,
-      description: description,
-      userId: getUserId(),
-    });
-    fetchPosts();
-    fetchUserPosts(getUserId());
+
+    if (description || image) {
+      await createPost({
+        image: image,
+        description: description,
+        userId: getUserId(),
+      });
+      fetchPosts();
+      fetchUserPosts(getUserId());
+    }
   };
 
   return (
@@ -62,7 +65,7 @@ const CreateFeed = (props) => {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
           <div className="row justify-content-between">
-            <div className="col-sm-3 d-flex">
+            <div className="col-3 d-flex">
               <input
                 type="file"
                 className="form-control-file"
@@ -87,9 +90,12 @@ const CreateFeed = (props) => {
               )}
             </div>
             <div className="col-auto d-flex">
-              <Button type="submit" className={`btn btn-sm ${classes.button}`}>
+              <button
+                type="submit"
+                className={`btn btn-sm ${classes.button} text-white`}
+              >
                 Post
-              </Button>
+              </button>
             </div>
           </div>
         </form>
