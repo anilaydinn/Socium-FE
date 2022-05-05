@@ -70,6 +70,7 @@ const Feed = (props) => {
     await sendCommentToPost(feed.id, content);
     setContent("");
     fetchPosts();
+    fetchUserPosts(getUserId());
   };
 
   return (
@@ -214,6 +215,34 @@ const DynamicComments = (props) => {
       );
     }
     return componentArr;
+  } else if (feed.comments && feed.comments.length <= 3 && !isSeeMore) {
+    return (
+      feed.comments &&
+      feed.comments.map((comment) => (
+        <div key={comment.id} className="col-md-12">
+          <div className="card mb-3">
+            <div className="row g-0">
+              {comment.user.image && (
+                <div className="col-md-4">
+                  <img src="" className="img-fluid rounded-start" />
+                </div>
+              )}
+              <div className="col-md-8">
+                <div className="card-body">
+                  <h6 className="card-title">
+                    {`${comment.user.name}  ${comment.user.surname}`} 111
+                  </h6>
+                  <p className="card-text">{comment.content}</p>
+                  <p className="card-text">
+                    <small className="text-muted">{comment.createdAt}</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    );
   } else if (isSeeMore) {
     return (
       feed.comments &&
