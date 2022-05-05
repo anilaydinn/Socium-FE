@@ -243,12 +243,22 @@ img {
   margin-right: 5px;
 }
 
+.btn-edit-profile {
+  background-color: #17a2b8;
+  border: 0;
+}
+
+.btn-edit-profile:hover {
+  background-color: #0d6efd;
+}
+
 @media (max-width: 767px) {
   .profile-header {
     grid-template-columns: 1fr;
   }
   .btn-edit-profile {
     width: 100% !important;
+    background-color: #17a2b8;
     margin-top: 10px;
     margin-bottom: 10px;
   }
