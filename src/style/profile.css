@@ -220,3 +220,11 @@ img {
   border: 1px solid #f2f4f9;
   border-radius: 0.25rem;
 }
+
+.profile-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: auto;
+  justify-content: end;
+  align-items: center;
+}

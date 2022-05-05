@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUser } from "../../redux/actions/userActions";
 import { getUserId } from "../../helpers/helpers";
+import { updateUser } from "../../api";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -36,13 +36,11 @@ const ProfileEditBox = (props) => {
   const classes = useStyles();
 
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(user ? user.profileImage : "");
 
   useEffect(() => {
     fetchUser(getUserId());
   }, []);
-
-  console.log(image);
 
   const handleOnloadCoverImage = (e) => {
     var reader = new FileReader();
@@ -56,6 +54,12 @@ const ProfileEditBox = (props) => {
     };
   };
 
+  const handleUpdateUser = async (e) => {
+    e.preventDefault();
+    await updateUser(getUserId(), description, image);
+    fetchUser(getUserId());
+  };
+
   return (
     <div className="container bootstrap snippets bootdey">
       <div className="row justify-content-center ng-scope">
@@ -66,7 +70,10 @@ const ProfileEditBox = (props) => {
               <div className="row pv-lg">
                 <div className="col-lg-2"></div>
                 <div className="col-lg-8">
-                  <form className="form-horizontal ng-pristine ng-valid">
+                  <form
+                    onSubmit={(e) => handleUpdateUser(e)}
+                    className="form-horizontal ng-pristine ng-valid"
+                  >
                     <div className="col-sm-3 d-flex">
                       <input
                         type="file"
@@ -82,7 +89,7 @@ const ProfileEditBox = (props) => {
                         Image
                       </label>
 
-                      {image && !user.image && (
+                      {image && user.profileImage && (
                         <img
                           src={image}
                           alt="post-image"
@@ -91,9 +98,9 @@ const ProfileEditBox = (props) => {
                           height={30}
                         />
                       )}
-                      {user && user.image && user.image.length > 0 && (
+                      {user && user.profileImage && !image && (
                         <img
-                          src={image}
+                          src={user.profileImage}
                           alt="post-image"
                           className={`img-fluid ${classes.marginLeft}`}
                           width={30}

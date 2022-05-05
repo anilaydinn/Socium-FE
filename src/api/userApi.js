@@ -1,7 +1,7 @@
 import axios from "axios";
+import { generateBearerToken } from "../helpers/helpers";
 
 const registerUser = async (user) => {
-  console.log(user.birthDate);
   const response = await axios.post(
     "http://localhost:8080/api/register",
     {
@@ -81,4 +81,33 @@ const getUser = async (userId) => {
   return response.status === 200 ? response.data : null;
 };
 
-export { registerUser, loginUser, forgotPassword, resetPassword, getUser };
+const updateUser = async (userId, description, profileImage) => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.patch(
+    `http://localhost:8080/user/users/${userId}`,
+    {
+      description: description,
+      profileImage: profileImage,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
+export {
+  registerUser,
+  loginUser,
+  forgotPassword,
+  resetPassword,
+  getUser,
+  updateUser,
+};

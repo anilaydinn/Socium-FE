@@ -81,7 +81,9 @@ const Feed = (props) => {
             <div className="d-flex align-items-center">
               <img
                 className={`${classes.imgXs} ${classes.roundedCircle}`}
-                src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                src={feed.user.profileImage}
+                height={37}
+                width={37}
                 alt=""
               />
               <div className="ml-2">
