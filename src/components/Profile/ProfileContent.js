@@ -53,7 +53,9 @@ const ProfileContent = (props) => {
                       src="https://bootdey.com/img/Content/avatar/avatar6.png"
                       alt="profile"
                     />
-                    <span className="profile-name">Amiah Burton</span>
+                    <span className="profile-name">{`${user && user.name} ${
+                      user && user.surname
+                    }`}</span>
                   </div>
                   <div className="d-none d-md-block">
                     <Link to={"/profile/edit"} className={classes.link}>
@@ -215,22 +217,26 @@ const ProfileContent = (props) => {
                     </div>
                   </div>
                 </div>
-                <p>
-                  Hi! I'm Amiah the Senior UI Designer at Vibrant. We hope you
-                  enjoy the design and quality of Social.
-                </p>
+                {user && user.description && (
+                  <p>
+                    Hi! I'm Amiah the Senior UI Designer at Vibrant. We hope you
+                    enjoy the design and quality of Social.
+                  </p>
+                )}
                 <div className="mt-3">
                   <label className="tx-11 font-weight-bold mb-0 text-uppercase">
                     Joined:
                   </label>
                   <p className="text-muted">{user && user.createdAt}</p>
                 </div>
-                <div className="mt-3">
-                  <label className="tx-11 font-weight-bold mb-0 text-uppercase">
-                    Age:
-                  </label>
-                  <p className="text-muted">15</p>
-                </div>
+                {user && user.birthDate && (
+                  <div className="mt-3">
+                    <label className="tx-11 font-weight-bold mb-0 text-uppercase">
+                      Birth Date:
+                    </label>
+                    <p className="text-muted">{user.birthDate}</p>
+                  </div>
+                )}
                 <div className="mt-3">
                   <label className="tx-11 font-weight-bold mb-0 text-uppercase">
                     Email:

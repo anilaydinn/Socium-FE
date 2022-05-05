@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const registerUser = async (user) => {
+  console.log(user.birthDate);
   const response = await axios.post(
     "http://localhost:8080/api/register",
     {
@@ -8,6 +9,7 @@ const registerUser = async (user) => {
       password: user.password,
       name: user.name,
       surname: user.surname,
+      birthDate: user.birthDate,
     },
     {
       headers: {

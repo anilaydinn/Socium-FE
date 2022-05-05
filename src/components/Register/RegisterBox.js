@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Button } from "react-bootstrap";
 import { registerUser as registerUserApi } from "../../api";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -36,6 +38,8 @@ const RegisterBox = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [birthDate, setBirthDate] = useState(null);
+  const [startDate] = useState(new Date());
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -43,6 +47,7 @@ const RegisterBox = () => {
       name,
       surname,
       email,
+      birthDate,
       password,
       rePassword,
     });
@@ -95,6 +100,19 @@ const RegisterBox = () => {
                           type="text"
                           required
                           onChange={(e) => setSurname(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="surnameFormItem" className="form-label">
+                        Doğum Tarihi
+                      </label>
+
+                      <div className="col-sm-10 mt-2">
+                        <DatePicker
+                          selected={birthDate === null ? startDate : birthDate}
+                          onChange={(date) => setBirthDate(date)}
+                          className="form-control shadow-sm"
                         />
                       </div>
                     </div>
