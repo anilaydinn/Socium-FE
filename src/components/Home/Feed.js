@@ -201,7 +201,7 @@ const DynamicComments = (props) => {
               <div className="col-md-8">
                 <div className="card-body">
                   <h6 className="card-title">
-                    {`${feed.comments[i].user.name}  ${feed.comments[i].user.surname} 111`}
+                    {`${feed.comments[i].user.name}  ${feed.comments[i].user.surname}`}
                   </h6>
                   <p className="card-text">{feed.comments[i].content}</p>
                   <p className="card-text">
@@ -232,7 +232,7 @@ const DynamicComments = (props) => {
               <div className="col-md-8">
                 <div className="card-body">
                   <h6 className="card-title">
-                    {`${comment.user.name}  ${comment.user.surname}`} 111
+                    {`${comment.user.name}  ${comment.user.surname}`}
                   </h6>
                   <p className="card-text">{comment.content}</p>
                   <p className="card-text">
@@ -260,7 +260,7 @@ const DynamicComments = (props) => {
               <div className="col-md-8">
                 <div className="card-body">
                   <h6 className="card-title">
-                    {`${comment.user.name}  ${comment.user.surname}`} 111
+                    {`${comment.user.name}  ${comment.user.surname}`}
                   </h6>
                   <p className="card-text">{comment.content}</p>
                   <p className="card-text">

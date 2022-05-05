@@ -41,7 +41,7 @@ const ProfileContent = (props) => {
               <div>
                 {user && user.profileImage && (
                   <img
-                    className="profile-pic"
+                    className="profile-image"
                     src={user && user.profileImage}
                     height={100}
                     width={100}

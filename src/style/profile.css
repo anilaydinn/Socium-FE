@@ -228,3 +228,22 @@ img {
   justify-content: end;
   align-items: center;
 }
+
+.profile-image {
+  border-radius: 50%;
+}
+
+.profile-name {
+  margin-left: 10px;
+}
+
+@media (max-width: 767px) {
+  .profile-header {
+    grid-template-columns: 1fr;
+  }
+  .btn-edit-profile {
+    width: 100% !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
