@@ -193,9 +193,14 @@ const DynamicComments = (props) => {
         <div key={feed.comments[i].id} className="col-md-12">
           <div className="card mb-3">
             <div className="row g-0">
-              {feed.comments[i].user.image && (
-                <div className="col-md-4">
-                  <img src="" className="img-fluid rounded-start" />
+              {feed.comments[i].user.profileImage && (
+                <div className="col-md-1 d-flex align-items-center justify-content-center">
+                  <img
+                    src={feed.comments[i].user.profileImage}
+                    className="comment-profile-image"
+                    height={37}
+                    width={37}
+                  />
                 </div>
               )}
               <div className="col-md-8">
@@ -224,9 +229,14 @@ const DynamicComments = (props) => {
         <div key={comment.id} className="col-md-12">
           <div className="card mb-3">
             <div className="row g-0">
-              {comment.user.image && (
-                <div className="col-md-4">
-                  <img src="" className="img-fluid rounded-start" />
+              {comment.user.profileImage && (
+                <div className="col-md-1 d-flex align-items-center justify-content-center">
+                  <img
+                    src={comment.user.profileImage}
+                    className="comment-profile-image"
+                    height={37}
+                    width={37}
+                  />
                 </div>
               )}
               <div className="col-md-8">
@@ -252,9 +262,14 @@ const DynamicComments = (props) => {
         <div key={comment.id} className="col-md-12">
           <div className="card mb-3">
             <div className="row g-0">
-              {comment.user.image && (
-                <div className="col-md-4">
-                  <img src="" className="img-fluid rounded-start" />
+              {comment.user.profileImage && (
+                <div className="col-md-1 d-flex align-items-center justify-content-center pl-1">
+                  <img
+                    src={comment.user.profileImage}
+                    className="comment-profile-image"
+                    height={37}
+                    width={37}
+                  />
                 </div>
               )}
               <div className="col-md-8">

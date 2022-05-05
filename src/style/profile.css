@@ -227,6 +227,7 @@ img {
   width: auto;
   justify-content: end;
   align-items: center;
+  padding: 10px;
 }
 
 .profile-image {
@@ -240,7 +241,6 @@ img {
 .edit-button-wrapper {
   display: flex;
   justify-content: end;
-  margin-right: 5px;
 }
 
 .btn-edit-profile {
@@ -266,4 +266,8 @@ img {
     display: block;
     width: 100% !important;
   }
+}
+
+.comment-profile-image {
+  border-radius: 50%;
 }

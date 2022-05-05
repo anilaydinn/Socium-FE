@@ -108,7 +108,7 @@ const ProfileEditBox = (props) => {
                         />
                       )}
                     </div>
-                    <div className="form-group">
+                    <div className="form-group mt-3">
                       <label
                         className="col-sm-2 control-label"
                         htmlFor="inputContact2"
