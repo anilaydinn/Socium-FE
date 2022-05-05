@@ -237,6 +237,12 @@ img {
   margin-left: 10px;
 }
 
+.edit-button-wrapper {
+  display: flex;
+  justify-content: end;
+  margin-right: 5px;
+}
+
 @media (max-width: 767px) {
   .profile-header {
     grid-template-columns: 1fr;
@@ -245,5 +251,9 @@ img {
     width: 100% !important;
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+  .edit-button-wrapper {
+    display: block;
+    width: 100% !important;
   }
 }

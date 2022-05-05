@@ -85,14 +85,7 @@ const ProfileContent = (props) => {
                   Friends <span className="text-muted tx-12">3,765</span>
                 </Link>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "end",
-                  width: "100%",
-                  marginRight: "5px",
-                }}
-              >
+              <div className="edit-button-wrapper">
                 <Link to={"/profile/edit"} className={classes.link}>
                   <button className="btn btn-info btn-icon-text btn-edit-profile text-white">
                     <svg
