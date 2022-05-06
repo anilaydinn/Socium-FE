@@ -9,6 +9,7 @@ import { getUserId, isLogin } from "../../helpers/helpers";
 import { fetchUserPosts } from "../../redux/actions/postActions";
 import { fetchUser } from "../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
+import { sendFriendRequest } from "../../api";
 
 const useStyles = makeStyles({
   link: {
@@ -33,6 +34,11 @@ const OtherProfileContent = (props) => {
     fetchUserPosts(userId);
     fetchUser(userId);
   }, []);
+
+  const handleSendFriendRequest = async () => {
+    await sendFriendRequest(getUserId(), userId);
+    fetchUser(userId);
+  };
 
   return (
     <div className="container mb-5">
@@ -88,13 +94,25 @@ const OtherProfileContent = (props) => {
                 </Link>
               </div>
               <div className="edit-button-wrapper">
-                <button className="btn btn-info btn-icon-text btn-edit-profile text-white">
+                <button
+                  onClick={() => handleSendFriendRequest()}
+                  className="btn btn-info btn-icon-text btn-edit-profile text-white"
+                  disabled={
+                    user &&
+                    user.friendRequestUserIDs &&
+                    user.friendRequestUserIDs.includes(getUserId())
+                  }
+                >
                   <img
                     src="https://img.icons8.com/ultraviolet/40/000000/add-user-group-man-man.png"
                     width={25}
                     height={25}
                   />
-                  Add Friend
+                  {user &&
+                  user.friendRequestUserIDs &&
+                  user.friendRequestUserIDs.includes(getUserId())
+                    ? "Friend Request Sended"
+                    : "Add Friend"}
                 </button>
               </div>
             </div>

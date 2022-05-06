@@ -103,6 +103,25 @@ const updateUser = async (userId, description, profileImage) => {
   return response.status === 200 ? response.data : null;
 };
 
+const sendFriendRequest = async (userId, targetUserId) => {
+  const bearerToken = generateBearerToken();
+  await axios.post(
+    `http://localhost:8080/user/users/${targetUserId}/friendRequests`,
+    {
+      userId: userId,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: bearerToken,
+      },
+    }
+  );
+};
+
 export {
   registerUser,
   loginUser,
@@ -110,4 +129,5 @@ export {
   resetPassword,
   getUser,
   updateUser,
+  sendFriendRequest,
 };
