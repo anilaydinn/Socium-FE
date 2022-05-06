@@ -65,7 +65,11 @@ const Feed = (props) => {
   const handleLikePost = async () => {
     const resp = await likePost(feed.id, getUserId());
     fetchPosts();
-    fetchUserPosts(getUserId());
+    if (userId) {
+      fetchUserPosts(userId);
+    } else {
+      fetchUserPosts(getUserId());
+    }
   };
 
   const handleSendComment = async (e) => {
