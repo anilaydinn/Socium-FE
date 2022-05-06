@@ -61,27 +61,26 @@ const ProfileContent = (props) => {
                 }}
               >
                 <Link
+                  style={{ marginRight: "10px" }}
+                  className={`pt-1px d-none d-md-block ${classes.link}`}
+                  to="/profile/friend-requests"
+                >
+                  <img
+                    src="https://img.icons8.com/external-bearicons-blue-bearicons/64/000000/external-plus-essential-collection-bearicons-blue-bearicons.png"
+                    height={24}
+                    width={24}
+                    style={{ marginRight: "10px" }}
+                  />
+                  Friend Requests
+                </Link>
+                <Link
                   className={`pt-1px d-none d-md-block ${classes.link}`}
                   to="/"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    className="feather feather-users mr-1 icon-md"
+                  <img
+                    src="https://img.icons8.com/ultraviolet/24/000000/conference-call.png"
                     style={{ marginRight: "10px" }}
-                  >
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="9" cy="7" r="4"></circle>
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                  </svg>
+                  />
                   Friends <span className="text-muted tx-12">3,765</span>
                 </Link>
               </div>

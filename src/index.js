@@ -10,6 +10,9 @@ const store = createStore({
     feeds: [],
     userFeeds: [],
   },
+  user: {
+    friendRequests: [],
+  },
 });
 
 ReactDOM.render(
