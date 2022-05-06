@@ -5,6 +5,8 @@ import { makeStyles } from "@mui/styles";
 import { likePost, sendCommentToPost } from "../../api";
 import { getUserId } from "../../helpers/helpers";
 import { fetchPosts, fetchUserPosts } from "../../redux/actions/postActions";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles({
   gridMargin: {
@@ -53,6 +55,7 @@ const useStyles = makeStyles({
 });
 
 const Feed = (props) => {
+  const { userId } = useParams();
   const { col, feed, fetchPosts, fetchUserPosts } = props;
   const classes = useStyles();
 
@@ -70,7 +73,11 @@ const Feed = (props) => {
     await sendCommentToPost(feed.id, content);
     setContent("");
     fetchPosts();
-    fetchUserPosts(getUserId());
+    if (userId) {
+      fetchUserPosts(userId);
+    } else {
+      fetchUserPosts(getUserId());
+    }
   };
 
   return (
@@ -79,19 +86,37 @@ const Feed = (props) => {
         <div className={`${classes.cardHeader}`}>
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
-              <img
-                className={`${classes.imgXs} ${classes.roundedCircle}`}
-                src={feed.user.profileImage}
-                height={37}
-                width={37}
-                alt=""
-              />
-              <div className="ml-2">
-                <p>
-                  {feed.user.name} {feed.user.surname}
-                </p>
-                <p className="tx-11 text-muted">{feed.createdAt}</p>
-              </div>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to={
+                  feed.user.id === getUserId()
+                    ? `/profile`
+                    : `/profile/${feed.user.id}`
+                }
+              >
+                <img
+                  className={`${classes.imgXs} ${classes.roundedCircle}`}
+                  src={feed.user.profileImage}
+                  height={37}
+                  width={37}
+                  alt=""
+                />
+              </Link>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to={
+                  feed.user.id === getUserId()
+                    ? `/profile`
+                    : `/profile/${feed.user.id}`
+                }
+              >
+                <div className="ml-2">
+                  <p>
+                    {feed.user.name} {feed.user.surname}
+                  </p>
+                  <p className="tx-11 text-muted">{feed.createdAt}</p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -195,19 +220,37 @@ const DynamicComments = (props) => {
             <div className="row g-0">
               {feed.comments[i].user.profileImage && (
                 <div className="col-md-1 d-flex align-items-center justify-content-center">
-                  <img
-                    src={feed.comments[i].user.profileImage}
-                    className="comment-profile-image"
-                    height={37}
-                    width={37}
-                  />
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={
+                      feed.comments[i].user.id === getUserId()
+                        ? "/profile"
+                        : `/profile/${feed.comments[i].user.id}`
+                    }
+                  >
+                    <img
+                      src={feed.comments[i].user.profileImage}
+                      className="comment-profile-image"
+                      height={37}
+                      width={37}
+                    />
+                  </Link>
                 </div>
               )}
               <div className="col-md-8">
                 <div className="card-body">
-                  <h6 className="card-title">
-                    {`${feed.comments[i].user.name}  ${feed.comments[i].user.surname}`}
-                  </h6>
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={
+                      feed.comments[i].user.id === getUserId()
+                        ? "/profile"
+                        : `/profile/${feed.comments[i].user.id}`
+                    }
+                  >
+                    <h6 className="card-title">
+                      {`${feed.comments[i].user.name}  ${feed.comments[i].user.surname}`}
+                    </h6>
+                  </Link>
                   <p className="card-text">{feed.comments[i].content}</p>
                   <p className="card-text">
                     <small className="text-muted">
@@ -231,19 +274,37 @@ const DynamicComments = (props) => {
             <div className="row g-0">
               {comment.user.profileImage && (
                 <div className="col-md-1 d-flex align-items-center justify-content-center">
-                  <img
-                    src={comment.user.profileImage}
-                    className="comment-profile-image"
-                    height={37}
-                    width={37}
-                  />
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={
+                      comment.user.id === getUserId()
+                        ? "/profile"
+                        : `/profile/${comment.user.id}`
+                    }
+                  >
+                    <img
+                      src={comment.user.profileImage}
+                      className="comment-profile-image"
+                      height={37}
+                      width={37}
+                    />
+                  </Link>
                 </div>
               )}
               <div className="col-md-8">
                 <div className="card-body">
-                  <h6 className="card-title">
-                    {`${comment.user.name}  ${comment.user.surname}`}
-                  </h6>
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={
+                      comment.user.id === getUserId()
+                        ? "/profile"
+                        : `/profile/${comment.user.id}`
+                    }
+                  >
+                    <h6 className="card-title">
+                      {`${comment.user.name}  ${comment.user.surname}`}
+                    </h6>
+                  </Link>
                   <p className="card-text">{comment.content}</p>
                   <p className="card-text">
                     <small className="text-muted">{comment.createdAt}</small>
@@ -264,19 +325,37 @@ const DynamicComments = (props) => {
             <div className="row g-0">
               {comment.user.profileImage && (
                 <div className="col-md-1 d-flex align-items-center justify-content-center pl-1">
-                  <img
-                    src={comment.user.profileImage}
-                    className="comment-profile-image"
-                    height={37}
-                    width={37}
-                  />
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={
+                      comment.user.id === getUserId()
+                        ? "/profile"
+                        : `/profile/${comment.user.id}`
+                    }
+                  >
+                    <img
+                      src={comment.user.profileImage}
+                      className="comment-profile-image"
+                      height={37}
+                      width={37}
+                    />
+                  </Link>
                 </div>
               )}
               <div className="col-md-8">
                 <div className="card-body">
-                  <h6 className="card-title">
-                    {`${comment.user.name}  ${comment.user.surname}`}
-                  </h6>
+                  <Link
+                    style={{ textDecoration: "none", color: "black" }}
+                    to={
+                      comment.user.id === getUserId()
+                        ? "/profile"
+                        : `/profile/${comment.user.id}`
+                    }
+                  >
+                    <h6 className="card-title">
+                      {`${comment.user.name}  ${comment.user.surname}`}
+                    </h6>
+                  </Link>
                   <p className="card-text">{comment.content}</p>
                   <p className="card-text">
                     <small className="text-muted">{comment.createdAt}</small>

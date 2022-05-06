@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Contact from "./pages/Contact";
 import ResetPassword from "./pages/ResetPassword";
 import ProfileEdit from "./pages/ProfileEdit";
+import OtherProfile from "./pages/OtherProfile";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/about" element={<About />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:userId" element={<OtherProfile />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/reset-password/:id" element={<ResetPassword />} />
