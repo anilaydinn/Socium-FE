@@ -46,6 +46,8 @@ const CreateFeed = (props) => {
       });
       fetchPosts();
       fetchUserPosts(getUserId());
+      setDescription("");
+      setImage("");
     }
   };
 
