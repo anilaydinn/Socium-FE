@@ -44,6 +44,13 @@ const FriendRequestList = (props) => {
                     >
                       <h6 className="card-title">{`${friendRequest.name} ${friendRequest.surname}`}</h6>
                     </Link>
+                    <button
+                      style={{ marginRight: "5px" }}
+                      className="btn btn-sm btn-success"
+                    >
+                      Accept
+                    </button>
+                    <button className="btn btn-sm btn-danger">Decline</button>
                   </div>
                 </div>
               </div>
