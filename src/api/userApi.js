@@ -141,6 +141,25 @@ const getUserFriendRequests = async (userId) => {
   return response.status === 200 ? response.data : null;
 };
 
+const acceptOrDeclineFriendRequest = async (userId, targetUserId, accept) => {
+  const bearerToken = generateBearerToken();
+  await axios.post(
+    `http://localhost:8080/user/users/${userId}/friendRequests/${targetUserId}`,
+    {
+      accept: accept,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: bearerToken,
+      },
+    }
+  );
+};
+
 export {
   registerUser,
   loginUser,
@@ -150,4 +169,5 @@ export {
   updateUser,
   sendFriendRequest,
   getUserFriendRequests,
+  acceptOrDeclineFriendRequest,
 };
