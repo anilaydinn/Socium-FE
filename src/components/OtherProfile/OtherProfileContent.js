@@ -98,9 +98,12 @@ const OtherProfileContent = (props) => {
                   onClick={() => handleSendFriendRequest()}
                   className="btn btn-info btn-icon-text btn-edit-profile text-white"
                   disabled={
-                    user &&
-                    user.friendRequestUserIDs &&
-                    user.friendRequestUserIDs.includes(getUserId())
+                    (user &&
+                      user.friendRequestUserIDs &&
+                      user.friendRequestUserIDs.includes(getUserId())) ||
+                    (user &&
+                      user.friendIds &&
+                      user.friendIds.includes(getUserId()))
                   }
                 >
                   <img
@@ -109,10 +112,20 @@ const OtherProfileContent = (props) => {
                     height={25}
                   />
                   {user &&
-                  user.friendRequestUserIDs &&
-                  user.friendRequestUserIDs.includes(getUserId())
-                    ? "Friend Request Sended"
-                    : "Add Friend"}
+                    user.friendRequestUserIDs &&
+                    !user.friendRequestUserIDs.includes(getUserId()) &&
+                    !user.friendIds.includes(getUserId()) &&
+                    "Add Friend"}
+                  {user &&
+                    user.friendRequestUserIDs &&
+                    user.friendRequestUserIDs.includes(getUserId()) &&
+                    !user.friendIds.includes(getUserId()) &&
+                    "Friend Request Sended"}
+                  {user &&
+                    user.friendRequestUserIDs &&
+                    !user.friendRequestUserIDs.includes(getUserId()) &&
+                    user.friendIds.includes(getUserId()) &&
+                    "You are already friend"}
                 </button>
               </div>
             </div>
