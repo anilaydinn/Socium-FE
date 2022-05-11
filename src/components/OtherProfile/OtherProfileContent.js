@@ -112,18 +112,21 @@ const OtherProfileContent = (props) => {
                     height={25}
                   />
                   {user &&
+                    !user.friendRequestUserIDs &&
+                    !user.friendIds &&
+                    "Add Friend"}
+                  {user &&
                     user.friendRequestUserIDs &&
+                    user.friendIds &&
                     !user.friendRequestUserIDs.includes(getUserId()) &&
                     !user.friendIds.includes(getUserId()) &&
                     "Add Friend"}
                   {user &&
                     user.friendRequestUserIDs &&
                     user.friendRequestUserIDs.includes(getUserId()) &&
-                    !user.friendIds.includes(getUserId()) &&
                     "Friend Request Sended"}
                   {user &&
-                    user.friendRequestUserIDs &&
-                    !user.friendRequestUserIDs.includes(getUserId()) &&
+                    user.friendIds &&
                     user.friendIds.includes(getUserId()) &&
                     "You are already friend"}
                 </button>

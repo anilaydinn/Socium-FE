@@ -90,22 +90,24 @@ const Feed = (props) => {
         <div className={`${classes.cardHeader}`}>
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
-              <Link
-                style={{ textDecoration: "none", color: "black" }}
-                to={
-                  feed.user.id === getUserId()
-                    ? `/profile`
-                    : `/profile/${feed.user.id}`
-                }
-              >
-                <img
-                  className={`${classes.imgXs} ${classes.roundedCircle}`}
-                  src={feed.user.profileImage}
-                  height={37}
-                  width={37}
-                  alt=""
-                />
-              </Link>
+              {feed.user.profileImage && (
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to={
+                    feed.user.id === getUserId()
+                      ? `/profile`
+                      : `/profile/${feed.user.id}`
+                  }
+                >
+                  <img
+                    className={`${classes.imgXs} ${classes.roundedCircle}`}
+                    src={feed.user.profileImage}
+                    height={37}
+                    width={37}
+                    alt=""
+                  />
+                </Link>
+              )}
               <Link
                 style={{ textDecoration: "none", color: "black" }}
                 to={
