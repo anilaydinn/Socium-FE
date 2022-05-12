@@ -81,7 +81,12 @@ const ProfileContent = (props) => {
                     src="https://img.icons8.com/ultraviolet/24/000000/conference-call.png"
                     style={{ marginRight: "10px" }}
                   />
-                  Friends <span className="text-muted tx-12">3,765</span>
+                  <Link className={classes.link} to={"/profile/friends"}>
+                    Friends{" "}
+                    <span className="text-muted tx-12">
+                      {user && user.friendIds && user.friendIds.length}
+                    </span>
+                  </Link>
                 </Link>
               </div>
               <div className="edit-button-wrapper">

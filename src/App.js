@@ -11,6 +11,7 @@ import ResetPassword from "./pages/ResetPassword";
 import ProfileEdit from "./pages/ProfileEdit";
 import OtherProfile from "./pages/OtherProfile";
 import FriendRequests from "./pages/FriendRequests";
+import ProfileFriends from "./pages/ProfileFriends";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/profile/:userId" element={<OtherProfile />} />
           <Route path="/profile/friend-requests" element={<FriendRequests />} />
           <Route path="/profile/edit" element={<ProfileEdit />} />
+          <Route path="/profile/friends" element={<ProfileFriends />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/reset-password/:id" element={<ResetPassword />} />
         </Routes>

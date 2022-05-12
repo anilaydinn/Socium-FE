@@ -1,4 +1,8 @@
-import { SET_USER, SET_USER_FRIEND_REQUESTS } from "../actions/types";
+import {
+  SET_USER,
+  SET_USER_FRIENDS,
+  SET_USER_FRIEND_REQUESTS,
+} from "../actions/types";
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -8,6 +12,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         friendRequests: action.payload,
+      };
+    case SET_USER_FRIENDS:
+      return {
+        ...state,
+        friends: action.payload,
       };
     default:
       return state;

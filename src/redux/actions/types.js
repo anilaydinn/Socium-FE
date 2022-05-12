@@ -3,3 +3,4 @@ export const SET_USER_FEEDS = "SET_USER_FEEDS";
 
 export const SET_USER = "SET_USER";
 export const SET_USER_FRIEND_REQUESTS = "SET_USER_FRIEND_REQUESTS";
+export const SET_USER_FRIENDS = "SET_USER_FRIENDS";

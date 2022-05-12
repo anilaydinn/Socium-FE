@@ -160,6 +160,24 @@ const acceptOrDeclineFriendRequest = async (userId, targetUserId, accept) => {
   );
 };
 
+const getUserFriends = async (userId) => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.get(
+    "http://localhost:8080/user/users/" + userId + "/friends",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
 export {
   registerUser,
   loginUser,
@@ -170,4 +188,5 @@ export {
   sendFriendRequest,
   getUserFriendRequests,
   acceptOrDeclineFriendRequest,
+  getUserFriends,
 };
