@@ -116,6 +116,11 @@ const OtherProfileContent = (props) => {
                     !user.friendIds &&
                     "Add Friend"}
                   {user &&
+                    !user.friendRequestUserIDs &&
+                    user.friendIds &&
+                    !user.friendIds.includes(getUserId()) &&
+                    "Add Friend"}
+                  {user &&
                     user.friendRequestUserIDs &&
                     user.friendIds &&
                     !user.friendRequestUserIDs.includes(getUserId()) &&
