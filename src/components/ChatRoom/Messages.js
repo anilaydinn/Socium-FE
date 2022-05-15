@@ -16,13 +16,12 @@ const Messages = (props) => {
   const chatsRef = firebase.firestore().collection("chats");
 
   const getChatHandler = (chatIdValue) => {
-    console.log(chatIdValue);
-    const query = chatsRef.where("chatId", "==", "25db4ef71985d8c4").get();
-    query.then((querySnapshot) =>
-      querySnapshot.forEach((doc) => {
-        console.log(doc);
-      })
-    );
+    chatsRef
+      .doc(chatIdValue)
+      .get()
+      .then((doc) => {
+        console.log(doc.data());
+      });
   };
 
   useEffect(() => {
