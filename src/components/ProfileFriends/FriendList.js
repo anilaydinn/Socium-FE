@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { acceptOrDeclineFriendRequest } from "../../api";
 import { getUserId } from "../../helpers/helpers";
 import { fetchUserFriends } from "../../redux/actions/userActions";
 
@@ -46,6 +45,14 @@ const FriendList = (props) => {
                         to={`/profile/${friend.id}`}
                       >
                         <h6 className="card-title">{`${friend.name} ${friend.surname}`}</h6>
+                      </Link>
+                      <Link to={`/profile/${friend.id}/messages`}>
+                        <button
+                          style={{ marginRight: "5px" }}
+                          className="btn btn-sm btn-success"
+                        >
+                          Send Message
+                        </button>
                       </Link>
                     </div>
                   </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/General/Header";
 import OtherProfileContent from "../components/OtherProfile/OtherProfileContent";
 
-const OtherProfile = (props) => {
+const OtherProfile = () => {
   return (
     <div>
       <Header />

@@ -1,4 +1,9 @@
-import { SET_USER, SET_USER_FRIEND_REQUESTS, SET_USER_FRIENDS } from "./types";
+import {
+  SET_USER,
+  SET_USER_FRIEND_REQUESTS,
+  SET_USER_FRIENDS,
+  SET_CHAT_TARGET_USER,
+} from "./types";
 import { getUser, getUserFriendRequests, getUserFriends } from "../../api";
 
 export const fetchUser = (userId) => async (dispatch) => {
@@ -25,5 +30,14 @@ export const fetchUserFriends = (userId) => async (dispatch) => {
   dispatch({
     type: SET_USER_FRIENDS,
     payload: friends,
+  });
+};
+
+export const fetchChatTargetUser = (userId) => async (dispatch) => {
+  const chatTargetUser = await getUser(userId);
+
+  dispatch({
+    type: SET_CHAT_TARGET_USER,
+    payload: chatTargetUser,
   });
 };

@@ -1,4 +1,5 @@
 import {
+  SET_CHAT_TARGET_USER,
   SET_USER,
   SET_USER_FRIENDS,
   SET_USER_FRIEND_REQUESTS,
@@ -17,6 +18,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         friends: action.payload,
+      };
+    case SET_CHAT_TARGET_USER:
+      return {
+        ...state,
+        chatTargetUser: action.payload,
       };
     default:
       return state;
