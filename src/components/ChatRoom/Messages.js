@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import "../../style/chatroom.css";
@@ -8,10 +8,18 @@ import {
 } from "../../redux/actions/userActions";
 import { getUserId } from "../../helpers/helpers";
 import firebase from "../../firebase";
+import { setChatMessages } from "../../redux/actions/chatActions";
 
 const Messages = (props) => {
   const { userId } = useParams();
-  const { fetchChatTargetUser, fetchUser, user, chatTargetUser } = props;
+  const {
+    fetchChatTargetUser,
+    fetchUser,
+    user,
+    chatTargetUser,
+    setChatMessages,
+    chatMessages,
+  } = props;
 
   const chatsRef = firebase.firestore().collection("chats");
 
@@ -20,7 +28,7 @@ const Messages = (props) => {
       .doc(chatIdValue)
       .get()
       .then((doc) => {
-        console.log(doc.data());
+        setChatMessages(doc.data().messages);
       });
   };
 
@@ -35,6 +43,8 @@ const Messages = (props) => {
     fetchChatTargetUser(userId);
     fetchUser(getUserId());
   }, []);
+
+  console.log(chatMessages);
 
   return (
     <div className="container py-5">
@@ -53,37 +63,55 @@ const Messages = (props) => {
                 overflow: "scroll",
               }}
             >
-              <div className="d-flex flex-row justify-content-start">
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-                  alt="avatar 1"
-                  style={{ width: "45px", height: "100%" }}
-                />
-                <div>
-                  <p
-                    className="small p-2 ms-3 mb-1 rounded-3"
-                    style={{ backgroundColor: "#f5f6f7" }}
-                  >
-                    Hi
-                  </p>
-                  <p className="small ms-3 mb-3 rounded-3 text-muted">23:58</p>
-                </div>
-              </div>
-              <div className="d-flex flex-row justify-content-end mb-4 pt-1">
-                <div>
-                  <p className="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">
-                    Hiii, I'm good.
-                  </p>
-                  <p className="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">
-                    00:06
-                  </p>
-                </div>
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
-                  alt="avatar 1"
-                  style={{ width: "45px", height: "100%" }}
-                />
-              </div>
+              {chatMessages &&
+                chatMessages.map((userMessage, index) => {
+                  if (userMessage.userId == chatTargetUser.id) {
+                    return (
+                      <div
+                        key={index}
+                        className="d-flex flex-row justify-content-start"
+                      >
+                        <img
+                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
+                          alt="avatar 1"
+                          style={{ width: "45px", height: "100%" }}
+                        />
+                        <div>
+                          <p
+                            className="small p-2 ms-3 mb-1 rounded-3"
+                            style={{ backgroundColor: "#f5f6f7" }}
+                          >
+                            {userMessage.message}
+                          </p>
+                          <p className="small ms-3 mb-3 rounded-3 text-muted">
+                            {userMessage.createdAt}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  } else if (userMessage.userId == user.id) {
+                    return (
+                      <div
+                        key={index}
+                        className="d-flex flex-row justify-content-end mb-4 pt-1"
+                      >
+                        <div>
+                          <p className="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">
+                            {userMessage.message}
+                          </p>
+                          <p className="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">
+                            {userMessage.createdAt}
+                          </p>
+                        </div>
+                        <img
+                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
+                          alt="avatar 1"
+                          style={{ width: "45px", height: "100%" }}
+                        />
+                      </div>
+                    );
+                  }
+                })}
             </div>
             <div className="card-footer text-muted d-flex justify-content-start align-items-center p-3">
               <img
@@ -117,12 +145,14 @@ const Messages = (props) => {
 const mapStateToProps = (state) => ({
   user: state.user.user,
   chatTargetUser: state.user.chatTargetUser,
+  chatMessages: state.chat.chatMessages,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchChatTargetUser: (userId) => dispatch(fetchChatTargetUser(userId)),
     fetchUser: (userId) => dispatch(fetchUser(userId)),
+    setChatMessages: (messages) => dispatch(setChatMessages(messages)),
   };
 };
 

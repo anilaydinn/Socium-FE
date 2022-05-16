@@ -19,7 +19,7 @@ const FriendList = (props) => {
       {!friends && <div className="text-center mt-5">No friend requests</div>}
       {friends &&
         friends.map((friend) => (
-          <div className="row">
+          <div key={friend.id} className="row">
             <div className="col-md-12">
               <div className="card mb-3">
                 <div className="row g-0">
