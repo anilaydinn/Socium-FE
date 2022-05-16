@@ -24,12 +24,11 @@ const Messages = (props) => {
   const chatsRef = firebase.firestore().collection("chats");
 
   const getChatHandler = (chatIdValue) => {
-    chatsRef
-      .doc(chatIdValue)
-      .get()
-      .then((doc) => {
+    chatsRef.doc(chatIdValue).onSnapshot((doc) => {
+      if (doc.exists) {
         setChatMessages(doc.data().messages);
-      });
+      }
+    });
   };
 
   useEffect(() => {
@@ -43,8 +42,6 @@ const Messages = (props) => {
     fetchChatTargetUser(userId);
     fetchUser(getUserId());
   }, []);
-
-  console.log(chatMessages);
 
   return (
     <div className="container py-5">
@@ -65,9 +62,10 @@ const Messages = (props) => {
             >
               {chatMessages &&
                 chatMessages.map((userMessage, index) => {
-                  console.log("if", userMessage.userId == chatTargetUser.id);
-                  console.log("else", userMessage.userId == user.id);
-                  if (userMessage.userId == chatTargetUser.id) {
+                  if (
+                    userMessage.userId.replace(/[^a-zA-Z0-9]/g, "") ==
+                    chatTargetUser.id
+                  ) {
                     return (
                       <div
                         key={index}
@@ -91,7 +89,9 @@ const Messages = (props) => {
                         </div>
                       </div>
                     );
-                  } else if (userMessage.userId == user.id) {
+                  } else if (
+                    userMessage.userId.replace(/[^a-zA-Z0-9]/g, "") == user.id
+                  ) {
                     return (
                       <div
                         key={index}
