@@ -21,7 +21,20 @@ const Messages = (props) => {
     chatMessages,
   } = props;
 
+  const [message, setMessage] = useState("");
+
   const chatsRef = firebase.firestore().collection("chats");
+
+  const handleSendMessage = (e) => {
+    if (e.key == "Enter" && message.length > 0) {
+      const chatIdValue = user.id + chatTargetUser.id;
+      const obj = { userId: user.id, message: message };
+      chatsRef
+        .doc(chatIdValue)
+        .update({ messages: firebase.firestore.FieldValue.arrayUnion(obj) });
+      setMessage("");
+    }
+  };
 
   const getChatHandler = (chatIdValue) => {
     chatsRef.doc(chatIdValue).onSnapshot((doc) => {
@@ -135,6 +148,10 @@ const Messages = (props) => {
                 className="form-control form-control-lg"
                 id="exampleFormControlInput1"
                 placeholder="Type message"
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  handleSendMessage(e);
+                }}
               />
               <a className="ms-1 text-muted" href="#!">
                 <i className="fas fa-paperclip"></i>
