@@ -65,6 +65,8 @@ const Messages = (props) => {
             >
               {chatMessages &&
                 chatMessages.map((userMessage, index) => {
+                  console.log("if", userMessage.userId == chatTargetUser.id);
+                  console.log("else", userMessage.userId == user.id);
                   if (userMessage.userId == chatTargetUser.id) {
                     return (
                       <div
