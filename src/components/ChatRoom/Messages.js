@@ -27,7 +27,7 @@ const Messages = (props) => {
   const chatsRef = firebase.firestore().collection("chats");
 
   const handleCreateChat = () => {
-    if (!chat) {
+    if (chat == undefined) {
       const chatIdValue = user.id + chatTargetUser.id;
       chatsRef.doc(chatIdValue).set({
         messages: [],
@@ -41,6 +41,7 @@ const Messages = (props) => {
       chatsRef
         .doc(docId)
         .update({ messages: firebase.firestore.FieldValue.arrayUnion(obj) });
+      setMessage("");
     }
   };
 
@@ -68,7 +69,7 @@ const Messages = (props) => {
   }, [user != undefined && chatTargetUser != undefined && docId != undefined]);
 
   useEffect(() => {
-    if (user && chatTargetUser && !chat) {
+    if (user && chatTargetUser && chat == undefined) {
       handleCreateChat();
     }
     fetchChatTargetUser(userId);
@@ -168,8 +169,9 @@ const Messages = (props) => {
                 className="form-control form-control-lg"
                 id="exampleFormControlInput1"
                 placeholder="Type message"
+                value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={(e) => {
+                onKeyPress={(e) => {
                   handleSendMessage(e);
                 }}
               />
