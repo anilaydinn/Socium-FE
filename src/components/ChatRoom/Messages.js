@@ -8,7 +8,7 @@ import {
 } from "../../redux/actions/userActions";
 import { getUserId } from "../../helpers/helpers";
 import firebase from "../../firebase";
-import { setChatMessages } from "../../redux/actions/chatActions";
+import { setChat } from "../../redux/actions/chatActions";
 
 const Messages = (props) => {
   const { userId } = useParams();
@@ -17,41 +17,60 @@ const Messages = (props) => {
     fetchUser,
     user,
     chatTargetUser,
-    setChatMessages,
-    chatMessages,
+    setChat,
+    chat,
   } = props;
 
   const [message, setMessage] = useState("");
+  const [docId, setDocId] = useState("");
 
   const chatsRef = firebase.firestore().collection("chats");
 
-  const handleSendMessage = (e) => {
-    if (e.key == "Enter" && message.length > 0) {
-      const chatIdValue = user.id + chatTargetUser.id;
-      const obj = { userId: user.id, message: message };
-      chatsRef
-        .doc(chatIdValue)
-        .update({ messages: firebase.firestore.FieldValue.arrayUnion(obj) });
-      setMessage("");
+  const handleCreateChat = () => {
+    if (!chat) {
+      chatsRef.doc().set({
+        messages: [],
+        participants: [user.id, chatTargetUser.id],
+      });
     }
   };
 
-  const getChatHandler = (chatIdValue) => {
+  const handleSendMessage = (e) => {
+    if (e.key == "Enter" && message.length > 0) {
+      const obj = { userId: user.id, message: message };
+      chatsRef
+        .doc(docId)
+        .update({ messages: firebase.firestore.FieldValue.arrayUnion(obj) });
+    }
+  };
+
+  const getChatHandler = () => {
+    const chatIdValue = user.id + chatTargetUser.id;
+    const reverseChatIdValue = chatTargetUser.id + user.id;
+
     chatsRef.doc(chatIdValue).onSnapshot((doc) => {
-      if (doc.exists) {
-        setChatMessages(doc.data().messages);
+      if (!doc.data()) {
+        chatsRef.doc(reverseChatIdValue).onSnapshot((doc) => {
+          setDocId(doc.id);
+          setChat(doc.data());
+        });
+      } else {
+        setDocId(doc.id);
+        setChat(doc.data());
       }
     });
   };
 
   useEffect(() => {
     if (user && chatTargetUser) {
-      const chatIdValue = user.id + chatTargetUser.id;
-      getChatHandler(chatIdValue);
+      getChatHandler();
     }
-  }, [user != undefined && chatTargetUser != undefined]);
+  }, [user != undefined && chatTargetUser != undefined && docId != undefined]);
 
   useEffect(() => {
+    if (user && chatTargetUser && !chat) {
+      //handleCreateChat();
+    }
     fetchChatTargetUser(userId);
     fetchUser(getUserId());
   }, []);
@@ -73,8 +92,9 @@ const Messages = (props) => {
                 overflow: "scroll",
               }}
             >
-              {chatMessages &&
-                chatMessages.map((userMessage, index) => {
+              {chat &&
+                chat.messages &&
+                chat.messages.map((userMessage, index) => {
                   if (
                     userMessage.userId.replace(/[^a-zA-Z0-9]/g, "") ==
                     chatTargetUser.id
@@ -173,14 +193,14 @@ const Messages = (props) => {
 const mapStateToProps = (state) => ({
   user: state.user.user,
   chatTargetUser: state.user.chatTargetUser,
-  chatMessages: state.chat.chatMessages,
+  chat: state.chat.chat,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchChatTargetUser: (userId) => dispatch(fetchChatTargetUser(userId)),
     fetchUser: (userId) => dispatch(fetchUser(userId)),
-    setChatMessages: (messages) => dispatch(setChatMessages(messages)),
+    setChat: (chat) => dispatch(setChat(chat)),
   };
 };
 

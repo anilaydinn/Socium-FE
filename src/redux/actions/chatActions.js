@@ -1,8 +1,8 @@
-import { SET_CHAT_MESSAGES } from "./types";
+import { SET_CHAT } from "./types";
 
-export const setChatMessages = (messages) => async (dispatch) => {
+export const setChat = (chat) => async (dispatch) => {
   dispatch({
-    type: SET_CHAT_MESSAGES,
-    payload: messages,
+    type: SET_CHAT,
+    payload: chat,
   });
 };

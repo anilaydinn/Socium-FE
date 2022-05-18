@@ -1,9 +1,9 @@
-import { SET_CHAT_MESSAGES } from "../actions/types";
+import { SET_CHAT } from "../actions/types";
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case SET_CHAT_MESSAGES:
-      return { ...state, chatMessages: action.payload };
+    case SET_CHAT:
+      return { ...state, chat: action.payload };
     default:
       return state;
   }
