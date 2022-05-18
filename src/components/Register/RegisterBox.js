@@ -40,6 +40,8 @@ const RegisterBox = () => {
   const [rePassword, setRePassword] = useState("");
   const [birthDate, setBirthDate] = useState(null);
   const [startDate] = useState(new Date());
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -50,11 +52,18 @@ const RegisterBox = () => {
       birthDate,
       password,
       rePassword,
+      latitude,
+      longitude,
     });
     if (resp) {
       window.location.href = "/login";
     }
   };
+
+  navigator.geolocation.getCurrentPosition((location) => {
+    setLatitude(location.coords.latitude);
+    setLongitude(location.coords.longitude);
+  });
 
   return (
     <div className="container bootstrap snippets bootdey">

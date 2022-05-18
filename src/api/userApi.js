@@ -10,6 +10,8 @@ const registerUser = async (user) => {
       name: user.name,
       surname: user.surname,
       birthDate: user.birthDate,
+      latitude: user.latitude,
+      longitude: user.longitude,
     },
     {
       headers: {
