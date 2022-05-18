@@ -46,14 +46,14 @@ const FriendList = (props) => {
                       >
                         <h6 className="card-title">{`${friend.name} ${friend.surname}`}</h6>
                       </Link>
-                      <Link to={`/profile/${friend.id}/messages`}>
+                      <a href={`/profile/${friend.id}/messages`}>
                         <button
                           style={{ marginRight: "5px" }}
                           className="btn btn-sm btn-success"
                         >
                           Send Message
                         </button>
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>
