@@ -28,9 +28,9 @@ const Messages = (props) => {
 
   const handleCreateChat = () => {
     if (!chat) {
-      chatsRef.doc().set({
+      const chatIdValue = user.id + chatTargetUser.id;
+      chatsRef.doc(chatIdValue).set({
         messages: [],
-        participants: [user.id, chatTargetUser.id],
       });
     }
   };
@@ -69,7 +69,7 @@ const Messages = (props) => {
 
   useEffect(() => {
     if (user && chatTargetUser && !chat) {
-      //handleCreateChat();
+      handleCreateChat();
     }
     fetchChatTargetUser(userId);
     fetchUser(getUserId());
