@@ -13,12 +13,14 @@ import OtherProfile from "./pages/OtherProfile";
 import FriendRequests from "./pages/FriendRequests";
 import ProfileFriends from "./pages/ProfileFriends";
 import ChatRoom from "./pages/Chatroom";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
