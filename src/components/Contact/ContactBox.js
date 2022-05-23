@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Button } from "react-bootstrap";
+import { createContact } from "../../api";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -30,6 +31,16 @@ const useStyles = makeStyles({
 const ContactBox = () => {
   const classes = useStyles();
 
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleCreateContact = async (e) => {
+    e.preventDefault();
+    createContact(name, surname, email, message);
+  };
+
   return (
     <div className="container bootstrap snippets bootdey">
       <div className="row justify-content-center ng-scope">
@@ -40,7 +51,10 @@ const ContactBox = () => {
               <div className="row pv-lg">
                 <div className="col-lg-2"></div>
                 <div className="col-lg-8">
-                  <form className="form-horizontal ng-pristine ng-valid">
+                  <form
+                    onSubmit={(e) => handleCreateContact(e)}
+                    className="form-horizontal ng-pristine ng-valid"
+                  >
                     <div className="form-group">
                       <label
                         className="col-sm-2 control-label"
@@ -54,6 +68,24 @@ const ContactBox = () => {
                           name="name"
                           id="name"
                           type="text"
+                          onChange={(e) => setName(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label
+                        className="col-sm-2 control-label"
+                        htmlor="inputContact2"
+                      >
+                        Surname
+                      </label>
+                      <div className="col-sm-10">
+                        <input
+                          className="form-control"
+                          name="surname"
+                          id="surname"
+                          type="text"
+                          onChange={(e) => setSurname(e.target.value)}
                         />
                       </div>
                     </div>
@@ -70,6 +102,7 @@ const ContactBox = () => {
                           name="email"
                           id="email"
                           type="email"
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
                     </div>
@@ -87,12 +120,15 @@ const ContactBox = () => {
                           name="message"
                           placeholder="Please enter your message here..."
                           rows="5"
+                          onChange={(e) => setMessage(e.target.value)}
                         ></textarea>
                       </div>
                     </div>
                     <div className="form-group mt-4">
                       <div className="col-sm-offset-2 col-sm-10 mb-4">
-                        <Button className={classes.button}>Send</Button>
+                        <Button type="submit" className={classes.button}>
+                          Send
+                        </Button>
                       </div>
                     </div>
                   </form>
