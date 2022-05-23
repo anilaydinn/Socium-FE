@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 const CreateFeed = (props) => {
-  const { fetchPosts, fetchUserPosts } = props;
+  const { fetchPosts, fetchUserPosts, user } = props;
   const classes = useStyles();
 
   const [description, setDescription] = useState("");
@@ -44,7 +44,7 @@ const CreateFeed = (props) => {
         description: description,
         userId: getUserId(),
       });
-      fetchPosts();
+      fetchPosts(getUserId(), user.friendIds);
       fetchUserPosts(getUserId());
       setDescription("");
       setImage("");
@@ -106,11 +106,13 @@ const CreateFeed = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  user: state.user.user,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPosts: () => dispatch(fetchPosts()),
+    fetchPosts: (userId, friendIds) => dispatch(fetchPosts(userId, friendIds)),
     fetchUserPosts: (userId) => dispatch(fetchUserPosts(userId)),
   };
 };

@@ -2,14 +2,22 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import CreateFeed from "./CreateFeed";
 import Feed from "./Feed";
-import { isLogin } from "../../helpers/helpers";
+import { getUserId, isLogin } from "../../helpers/helpers";
+import { fetchUser } from "../../redux/actions/userActions";
 import { fetchPosts } from "../../redux/actions/postActions";
 
 const HomeFeeds = (props) => {
-  const { fetchPosts, feeds } = props;
+  const { fetchPosts, feeds, fetchUser, user } = props;
+
   useEffect(() => {
-    fetchPosts();
+    fetchUser(getUserId());
   }, []);
+
+  useEffect(() => {
+    if (user != undefined) {
+      fetchPosts(getUserId(), user.friendIds);
+    }
+  }, [user]);
 
   return (
     <div className="row justify-content-center d-block mt-3">
@@ -21,11 +29,13 @@ const HomeFeeds = (props) => {
 
 const mapStateToProps = (state) => ({
   feeds: state.post.feeds,
+  user: state.user.user,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPosts: () => dispatch(fetchPosts()),
+    fetchPosts: (userId, friendIds) => dispatch(fetchPosts(userId, friendIds)),
+    fetchUser: (userId) => dispatch(fetchUser(userId)),
   };
 };
 
