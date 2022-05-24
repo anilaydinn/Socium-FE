@@ -2,15 +2,26 @@ import React from "react";
 import AboutBox from "../components/About/AboutBox";
 import Footer from "../components/General/Footer";
 import Header from "../components/General/Header";
+import SearchedUsers from "../components/SearchedUsers/SearchedUsers";
+import { connect } from "react-redux";
 
-const About = () => {
+const About = (props) => {
+  const { searchedUsers } = props;
+
   return (
     <div>
       <Header />
-      <AboutBox />
+      {searchedUsers && searchedUsers.length > 0 && <SearchedUsers />}
+      {!searchedUsers && <AboutBox />}
       <Footer />
     </div>
   );
 };
 
-export default About;
+const mapStateToProps = (state) => ({
+  searchedUsers: state.user.searchedUsers,
+});
+
+const mapDispatchToProps = (dispatch) => {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(About);

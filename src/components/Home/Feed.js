@@ -64,7 +64,7 @@ const Feed = (props) => {
 
   const handleLikePost = async () => {
     const resp = await likePost(feed.id, getUserId());
-    fetchPosts();
+    fetchPosts(getUserId());
     if (userId) {
       fetchUserPosts(userId);
     } else {
@@ -381,7 +381,7 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPosts: () => dispatch(fetchPosts()),
+    fetchPosts: (userId, friendIds) => dispatch(fetchPosts(userId, friendIds)),
     fetchUserPosts: (userId) => dispatch(fetchUserPosts(userId)),
   };
 };
