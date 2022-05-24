@@ -3,6 +3,9 @@ import { SET_HOMEPAGE_FEEDS, SET_USER_FEEDS } from "./types";
 
 export const fetchPosts = (userId, friendIds) => async (dispatch) => {
   let friendIdList = "";
+  if (friendIds == null || friendIds == undefined) {
+    friendIds = [];
+  }
   for (let i = 0; i < friendIds.length; i++) {
     friendIdList += friendIds[i] + ",";
   }
