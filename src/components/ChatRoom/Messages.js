@@ -69,7 +69,7 @@ const Messages = (props) => {
   }, [user != undefined && chatTargetUser != undefined && docId != undefined]);
 
   useEffect(() => {
-    if (user && chatTargetUser && chat == undefined) {
+    if (user && chatTargetUser) {
       handleCreateChat();
     }
     fetchChatTargetUser(userId);
