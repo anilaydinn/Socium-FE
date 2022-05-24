@@ -31,6 +31,9 @@ const OtherProfileContent = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
+    if (userId == getUserId()) {
+      window.location.href = "/profile";
+    }
     fetchUserPosts(userId);
     fetchUser(userId);
   }, []);

@@ -1,14 +1,25 @@
 import React from "react";
 import Header from "../components/General/Header";
 import ProfileContent from "../components/Profile/ProfileContent";
+import { connect } from "react-redux";
+import SearchedUsers from "../components/SearchedUsers/SearchedUsers";
 
-const Profile = () => {
+const Profile = (props) => {
+  const { searchedUsers } = props;
+
   return (
     <div>
       <Header />
-      <ProfileContent />
+      {searchedUsers && searchedUsers.length > 0 && <SearchedUsers />}
+      {!searchedUsers && <ProfileContent />}
     </div>
   );
 };
 
-export default Profile;
+const mapStateToProps = (state) => ({
+  searchedUsers: state.user.searchedUsers,
+});
+
+const mapDispatchToProps = (dispatch) => {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
