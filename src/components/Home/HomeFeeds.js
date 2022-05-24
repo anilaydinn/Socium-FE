@@ -24,7 +24,9 @@ const HomeFeeds = (props) => {
     <div className="row justify-content-center d-block mt-3">
       {isLogin() && !searchedUsers && <CreateFeed col="6" />}
       {searchedUsers && searchedUsers.length > 0 && <SearchedUsers />}
-      {feeds && feeds.map((feed) => <Feed key={feed.id} col="6" feed={feed} />)}
+      {!searchedUsers &&
+        feeds &&
+        feeds.map((feed) => <Feed key={feed.id} col="6" feed={feed} />)}
     </div>
   );
 };
