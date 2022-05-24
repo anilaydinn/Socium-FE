@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import "../../style/profile.css";
 import Feed from "../Home/Feed";
-import CreateFeed from "../Home/CreateFeed";
 import { getUserId, isLogin } from "../../helpers/helpers";
 import { fetchUserPosts } from "../../redux/actions/postActions";
 import { fetchUser } from "../../redux/actions/userActions";
@@ -31,8 +30,10 @@ const OtherProfileContent = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
-    if (userId == getUserId()) {
-      window.location.href = "/profile";
+    if (isLogin()) {
+      if (userId == getUserId()) {
+        window.location.href = "/profile";
+      }
     }
     fetchUserPosts(userId);
     fetchUser(userId);
