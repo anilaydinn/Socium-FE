@@ -4,6 +4,7 @@ import {
   SET_USER_FRIENDS,
   SET_CHAT_TARGET_USER,
   SET_SEARCHED_USERS,
+  RESET_SEARCHED_USERS,
 } from "./types";
 import {
   getUser,
@@ -54,5 +55,11 @@ export const fetchUserWithFilter = (filter) => async (dispatch) => {
   dispatch({
     type: SET_SEARCHED_USERS,
     payload: users,
+  });
+};
+
+export const resetSearchedUsers = () => async (dispatch) => {
+  dispatch({
+    type: RESET_SEARCHED_USERS,
   });
 };

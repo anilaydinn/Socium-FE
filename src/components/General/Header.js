@@ -12,7 +12,10 @@ import { makeStyles } from "@mui/styles";
 import { isLogin } from "../../helpers/helpers";
 import { useCookies } from "react-cookie";
 import { connect } from "react-redux";
-import { fetchUserWithFilter } from "../../redux/actions/userActions";
+import {
+  fetchUserWithFilter,
+  resetSearchedUsers,
+} from "../../redux/actions/userActions";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -41,7 +44,7 @@ const Header = (props) => {
   const classes = useStyles();
   const [cookies, setCookie, removeCookie] = useCookies(["user-token"]);
 
-  const { fetchUserWithFilter } = props;
+  const { fetchUserWithFilter, resetSearchedUsers } = props;
 
   const handleLogout = () => {
     removeCookie("user-token");
@@ -66,24 +69,24 @@ const Header = (props) => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link>
+            <Nav.Link onClick={() => resetSearchedUsers()}>
               <Link className={classes.link} to={"/"}>
                 Home
               </Link>
             </Nav.Link>
             {isLogin() && (
-              <Nav.Link>
+              <Nav.Link onClick={() => resetSearchedUsers()}>
                 <Link className={classes.link} to="/profile">
                   Profile
                 </Link>
               </Nav.Link>
             )}
-            <Nav.Link>
+            <Nav.Link onClick={() => resetSearchedUsers()}>
               <Link className={classes.link} to={"/about"}>
                 About
               </Link>
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link onClick={() => resetSearchedUsers()}>
               <Link className={classes.link} to={"/contact"}>
                 Contact
               </Link>
@@ -128,6 +131,7 @@ const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUserWithFilter: (filter) => dispatch(fetchUserWithFilter(filter)),
+    resetSearchedUsers: () => dispatch(resetSearchedUsers()),
   };
 };
 

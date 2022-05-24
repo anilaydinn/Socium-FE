@@ -13,7 +13,7 @@ const SearchedUsers = (props) => {
       {!searchedUsers && <div className="text-center mt-5">No user found!</div>}
       {searchedUsers &&
         searchedUsers.map((user) => (
-          <div className="row">
+          <div key={user.id} className="row">
             <div className="col-md-12">
               <div className="card mb-3">
                 <div className="row g-0">
