@@ -3,6 +3,7 @@ import {
   SET_USER,
   SET_USER_FRIENDS,
   SET_USER_FRIEND_REQUESTS,
+  SET_SEARCHED_USERS,
 } from "../actions/types";
 
 export default (state = {}, action) => {
@@ -23,6 +24,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         chatTargetUser: action.payload,
+      };
+    case SET_SEARCHED_USERS:
+      return {
+        ...state,
+        searchedUsers: action.payload,
       };
     default:
       return state;

@@ -3,8 +3,14 @@ import {
   SET_USER_FRIEND_REQUESTS,
   SET_USER_FRIENDS,
   SET_CHAT_TARGET_USER,
+  SET_SEARCHED_USERS,
 } from "./types";
-import { getUser, getUserFriendRequests, getUserFriends } from "../../api";
+import {
+  getUser,
+  getUserFriendRequests,
+  getUserFriends,
+  getUsersWithFilter,
+} from "../../api";
 
 export const fetchUser = (userId) => async (dispatch) => {
   const user = await getUser(userId);
@@ -39,5 +45,14 @@ export const fetchChatTargetUser = (userId) => async (dispatch) => {
   dispatch({
     type: SET_CHAT_TARGET_USER,
     payload: chatTargetUser,
+  });
+};
+
+export const fetchUserWithFilter = (filter) => async (dispatch) => {
+  const users = await getUsersWithFilter(filter);
+
+  dispatch({
+    type: SET_SEARCHED_USERS,
+    payload: users,
   });
 };

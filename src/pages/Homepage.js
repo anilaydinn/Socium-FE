@@ -10,7 +10,6 @@ const Homepage = () => {
     <div>
       <Header />
       {isLogin() ? <HomeFeeds /> : <HomeBanner />}
-      <Footer />
     </div>
   );
 };

@@ -1,9 +1,18 @@
 import React from "react";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Button,
+  Form,
+  FormControl,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { isLogin } from "../../helpers/helpers";
 import { useCookies } from "react-cookie";
+import { connect } from "react-redux";
+import { fetchUserWithFilter } from "../../redux/actions/userActions";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -28,13 +37,20 @@ const useStyles = makeStyles({
   },
 });
 
-const Header = () => {
+const Header = (props) => {
   const classes = useStyles();
   const [cookies, setCookie, removeCookie] = useCookies(["user-token"]);
+
+  const { fetchUserWithFilter } = props;
 
   const handleLogout = () => {
     removeCookie("user-token");
     window.location.href = "/";
+  };
+
+  const handleSearchUser = (e) => {
+    e.preventDefault();
+    fetchUserWithFilter(e.target.value);
   };
 
   return (
@@ -73,6 +89,15 @@ const Header = () => {
               </Link>
             </Nav.Link>
           </Nav>
+          <Form className="d-flex" style={{ marginRight: "auto" }}>
+            <FormControl
+              type="search"
+              placeholder="Search users"
+              className="me-2"
+              aria-label="Search"
+              onChange={(e) => handleSearchUser(e)}
+            />
+          </Form>
           {!isLogin() ? (
             <div className={classes.buttonsContainer}>
               <Link className={classes.link} to={"/login"}>
@@ -98,4 +123,12 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUserWithFilter: (filter) => dispatch(fetchUserWithFilter(filter)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
