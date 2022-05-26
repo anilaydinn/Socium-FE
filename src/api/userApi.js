@@ -181,14 +181,16 @@ const getUserFriends = async (userId) => {
 };
 
 const getUsersWithFilter = async (filter) => {
+  const bearerToken = generateBearerToken();
   const response = await axios.get(
-    `http://localhost:8080/api/users?filter=${filter}`,
+    `http://localhost:8080/user/users?filter=${filter}`,
     {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers":
           "Origin, X-Requested-With, Content-Type, Accept",
+        Authorization: bearerToken,
       },
     }
   );

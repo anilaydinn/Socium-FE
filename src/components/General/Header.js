@@ -92,15 +92,17 @@ const Header = (props) => {
               </Link>
             </Nav.Link>
           </Nav>
-          <Form className="d-flex" style={{ marginRight: "auto" }}>
-            <FormControl
-              type="search"
-              placeholder="Search users"
-              className="me-2"
-              aria-label="Search"
-              onChange={(e) => handleSearchUser(e)}
-            />
-          </Form>
+          {isLogin() && (
+            <Form className="d-flex" style={{ marginRight: "auto" }}>
+              <FormControl
+                type="search"
+                placeholder="Search users"
+                className="me-2"
+                aria-label="Search"
+                onChange={(e) => handleSearchUser(e)}
+              />
+            </Form>
+          )}
           {!isLogin() ? (
             <div className={classes.buttonsContainer}>
               <Link className={classes.link} to={"/login"}>
