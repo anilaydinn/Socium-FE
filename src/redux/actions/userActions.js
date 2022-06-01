@@ -50,7 +50,14 @@ export const fetchChatTargetUser = (userId) => async (dispatch) => {
 };
 
 export const fetchUserWithFilter = (filter) => async (dispatch) => {
-  const users = await getUsersWithFilter(filter);
+  let users = [];
+  if (filter.length > 0) {
+    users = await getUsersWithFilter(filter);
+  } else {
+    dispatch({
+      type: RESET_SEARCHED_USERS,
+    });
+  }
 
   dispatch({
     type: SET_SEARCHED_USERS,

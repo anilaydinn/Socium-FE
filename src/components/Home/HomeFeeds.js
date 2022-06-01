@@ -22,6 +22,9 @@ const HomeFeeds = (props) => {
 
   return (
     <div className="row justify-content-center d-block mt-3">
+      {isLogin() && searchedUsers && searchedUsers.length == 0 && (
+        <CreateFeed col="6" />
+      )}
       {isLogin() && !searchedUsers && <CreateFeed col="6" />}
       {searchedUsers && searchedUsers.length > 0 && <SearchedUsers />}
       {!searchedUsers &&
