@@ -12,6 +12,12 @@ const store = createStore({
   },
   user: {
     friendRequests: [],
+    adminUsers: {
+      users: [],
+      page: {
+        number: 0,
+      },
+    },
   },
 });
 

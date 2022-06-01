@@ -198,6 +198,26 @@ const getUsersWithFilter = async (filter) => {
   return response.status === 200 ? response.data : null;
 };
 
+const getAllUsers = async (page, size, filter) => {
+  const bearerToken = generateBearerToken();
+
+  const response = await axios.get(
+    `http://localhost:8080/admin/users?page=${page}&size=${size}&filter=${
+      filter ? filter : ""
+    }`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
 export {
   registerUser,
   loginUser,
@@ -210,4 +230,5 @@ export {
   acceptOrDeclineFriendRequest,
   getUserFriends,
   getUsersWithFilter,
+  getAllUsers,
 };

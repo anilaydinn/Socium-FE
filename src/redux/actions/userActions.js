@@ -5,8 +5,10 @@ import {
   SET_CHAT_TARGET_USER,
   SET_SEARCHED_USERS,
   RESET_SEARCHED_USERS,
+  SET_ADMIN_USERS,
 } from "./types";
 import {
+  getAllUsers,
   getUser,
   getUserFriendRequests,
   getUserFriends,
@@ -68,5 +70,14 @@ export const fetchUserWithFilter = (filter) => async (dispatch) => {
 export const resetSearchedUsers = () => async (dispatch) => {
   dispatch({
     type: RESET_SEARCHED_USERS,
+  });
+};
+
+export const setAdminUsers = (page, size, filter) => async (dispatch) => {
+  const users = await getAllUsers(page, size, filter);
+
+  dispatch({
+    type: SET_ADMIN_USERS,
+    payload: users,
   });
 };

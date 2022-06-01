@@ -5,6 +5,7 @@ import {
   SET_USER_FRIEND_REQUESTS,
   SET_SEARCHED_USERS,
   RESET_SEARCHED_USERS,
+  SET_ADMIN_USERS,
 } from "../actions/types";
 
 export default (state = {}, action) => {
@@ -35,6 +36,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         searchedUsers: null,
+      };
+    case SET_ADMIN_USERS:
+      return {
+        ...state,
+        adminUsers: action.payload,
       };
     default:
       return state;
