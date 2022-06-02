@@ -69,7 +69,9 @@ const UsersList = (props) => {
                   {user.profileImage ? user.profileImage : "-"}
                 </td>
                 <td align="center">{user.userType}</td>
-                <td align="center">{user.isActivated}</td>
+                <td align="center">
+                  {user.isActivated ? "Activated" : "Not Activated"}
+                </td>
                 <td align="center">{user.createdAt}</td>
                 <td align="center">{user.updatedAt}</td>
                 <td align="center">{user.latitude}</td>

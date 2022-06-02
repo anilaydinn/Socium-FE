@@ -47,7 +47,7 @@ const Header = (props) => {
   const { fetchUserWithFilter, resetSearchedUsers } = props;
 
   const handleLogout = () => {
-    removeCookie("user-token");
+    removeCookie("user-token", { path: "/" });
     window.location.href = "/";
   };
 
