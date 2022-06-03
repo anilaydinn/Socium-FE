@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import { getCookie, isAdminUser, isLogin } from "./helpers/helpers";
 import Dashboard from "./pages/Admin/Dashboard";
 import Users from "./pages/Admin/Users";
+import User from "./pages/Admin/User";
 
 function App() {
   return (
@@ -49,6 +50,16 @@ function App() {
             element={
               isLogin() && isAdminUser(getCookie("user-token")) ? (
                 <Users />
+              ) : (
+                <Navigate to={"/"} />
+              )
+            }
+          />
+          <Route
+            path="/admin/users/:id"
+            element={
+              isLogin() && isAdminUser(getCookie("user-token")) ? (
+                <User />
               ) : (
                 <Navigate to={"/"} />
               )

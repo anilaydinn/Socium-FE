@@ -6,6 +6,7 @@ import {
   SET_SEARCHED_USERS,
   RESET_SEARCHED_USERS,
   SET_ADMIN_USERS,
+  SET_ADMIN_USER,
 } from "./types";
 import {
   getAllUsers,
@@ -13,6 +14,7 @@ import {
   getUserFriendRequests,
   getUserFriends,
   getUsersWithFilter,
+  getAdminUser,
 } from "../../api";
 
 export const fetchUser = (userId) => async (dispatch) => {
@@ -79,5 +81,14 @@ export const setAdminUsers = (page, size, filter) => async (dispatch) => {
   dispatch({
     type: SET_ADMIN_USERS,
     payload: users,
+  });
+};
+
+export const fetchAdminUser = (userId) => async (dispatch) => {
+  const user = await getAdminUser(userId);
+
+  dispatch({
+    type: SET_ADMIN_USER,
+    payload: user,
   });
 };

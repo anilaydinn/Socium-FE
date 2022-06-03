@@ -218,6 +218,23 @@ const getAllUsers = async (page, size, filter) => {
   return response.status === 200 ? response.data : null;
 };
 
+const getAdminUser = async (userId) => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.get(
+    `http://localhost:8080/admin/users/${userId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
 export {
   registerUser,
   loginUser,
@@ -231,4 +248,5 @@ export {
   getUserFriends,
   getUsersWithFilter,
   getAllUsers,
+  getAdminUser,
 };

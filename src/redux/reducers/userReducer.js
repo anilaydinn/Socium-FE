@@ -6,6 +6,7 @@ import {
   SET_SEARCHED_USERS,
   RESET_SEARCHED_USERS,
   SET_ADMIN_USERS,
+  SET_ADMIN_USER,
 } from "../actions/types";
 
 export default (state = {}, action) => {
@@ -41,6 +42,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         adminUsers: action.payload,
+      };
+    case SET_ADMIN_USER:
+      return {
+        ...state,
+        adminUser: action.payload,
       };
     default:
       return state;
