@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Table, Pagination, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { setAdminUsers } from "../../redux/actions/userActions";
 
 const UsersList = (props) => {
@@ -57,7 +58,9 @@ const UsersList = (props) => {
           {adminUsers &&
             adminUsers.users.map((user) => (
               <tr>
-                <td align="center">{user.id}</td>
+                <td align="center">
+                  <Link to={`/admin/users/${user.id}`}>{user.id}</Link>
+                </td>
                 <td align="center">{user.name}</td>
                 <td align="center">{user.surname}</td>
                 <td align="center">{user.email}</td>

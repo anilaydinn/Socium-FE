@@ -25,6 +25,11 @@ const HomeFeeds = (props) => {
       {isLogin() && searchedUsers && searchedUsers.length == 0 && (
         <CreateFeed col="6" />
       )}
+      {isLogin() &&
+        searchedUsers &&
+        searchedUsers.length == 0 &&
+        feeds &&
+        feeds.map((feed) => <Feed key={feed.id} col="6" feed={feed} />)}
       {isLogin() && !searchedUsers && <CreateFeed col="6" />}
       {searchedUsers && searchedUsers.length > 0 && <SearchedUsers />}
       {!searchedUsers &&

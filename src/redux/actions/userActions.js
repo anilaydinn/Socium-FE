@@ -7,6 +7,7 @@ import {
   RESET_SEARCHED_USERS,
   SET_ADMIN_USERS,
   SET_ADMIN_USER,
+  SET_ADMIN_USER_FEEDS,
 } from "./types";
 import {
   getAllUsers,
@@ -15,6 +16,7 @@ import {
   getUserFriends,
   getUsersWithFilter,
   getAdminUser,
+  getAdminUserPosts,
 } from "../../api";
 
 export const fetchUser = (userId) => async (dispatch) => {
@@ -90,5 +92,14 @@ export const fetchAdminUser = (userId) => async (dispatch) => {
   dispatch({
     type: SET_ADMIN_USER,
     payload: user,
+  });
+};
+
+export const fetchAdminUserPosts = (userId) => async (dispatch) => {
+  const posts = await getAdminUserPosts(userId);
+
+  dispatch({
+    type: SET_ADMIN_USER_FEEDS,
+    payload: posts,
   });
 };

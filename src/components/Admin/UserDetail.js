@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchAdminUser } from "../../redux/actions/userActions";
+import {
+  fetchAdminUser,
+  fetchAdminUserPosts,
+} from "../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
+import Feed from "../../components/Home/Feed";
+import AdminUserFeed from "./AdminUserFeed";
 
 const UserDetail = (props) => {
   const { id } = useParams();
-  const { fetchAdminUser, adminUser } = props;
+  const { fetchAdminUser, adminUser, adminUserFeeds, fetchAdminUserPosts } =
+    props;
 
   useEffect(() => {
     fetchAdminUser(id);
+    fetchAdminUserPosts(id);
   }, []);
 
   return (
@@ -27,6 +34,7 @@ const UserDetail = (props) => {
         )}
         {adminUser && !adminUser.profileImage && (
           <div className="col-md-12">
+            <b>ID:</b> {adminUser && adminUser.id} <br />
             <b>Email:</b> {adminUser && adminUser.email} <br />
             <b>BirthDate:</b> {adminUser && adminUser.birthDate} <br />
             <b>Description:</b>{" "}
@@ -40,17 +48,24 @@ const UserDetail = (props) => {
           </div>
         )}
       </div>
+      <h2 className="mt-5">User Posts</h2>
+      <div className="row mt-3">
+        {adminUserFeeds &&
+          adminUserFeeds.map((post) => <AdminUserFeed feed={post} />)}
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   adminUser: state.user.adminUser,
+  adminUserFeeds: state.post.adminUserFeeds,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchAdminUser: (userId) => dispatch(fetchAdminUser(userId)),
+    fetchAdminUserPosts: (userId) => dispatch(fetchAdminUserPosts(userId)),
   };
 };
 

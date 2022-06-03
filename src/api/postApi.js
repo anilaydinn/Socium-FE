@@ -95,4 +95,28 @@ const sendCommentToPost = async (postId, content) => {
   return response.status === 201 ? response.data : null;
 };
 
-export { createPost, getPosts, getUserPosts, likePost, sendCommentToPost };
+const getAdminUserPosts = async (userId) => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.get(
+    `http://localhost:8080/admin/users/${userId}/posts`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
+export {
+  createPost,
+  getPosts,
+  getUserPosts,
+  likePost,
+  sendCommentToPost,
+  getAdminUserPosts,
+};
