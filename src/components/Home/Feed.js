@@ -56,7 +56,7 @@ const useStyles = makeStyles({
 
 const Feed = (props) => {
   const { userId } = useParams();
-  const { col, feed, fetchPosts, fetchUserPosts } = props;
+  const { col, feed, fetchPosts, fetchUserPosts, user } = props;
   const classes = useStyles();
 
   const [content, setContent] = useState("");
@@ -64,7 +64,7 @@ const Feed = (props) => {
 
   const handleLikePost = async () => {
     const resp = await likePost(feed.id, getUserId());
-    fetchPosts(getUserId());
+    fetchPosts(getUserId(), user.friendIds);
     if (userId) {
       fetchUserPosts(userId);
     } else {
@@ -76,7 +76,7 @@ const Feed = (props) => {
     e.preventDefault();
     await sendCommentToPost(feed.id, content);
     setContent("");
-    fetchPosts();
+    fetchPosts(getUserId(), user.friendIds);
     if (userId) {
       fetchUserPosts(userId);
     } else {
@@ -377,7 +377,9 @@ const DynamicComments = (props) => {
   return null;
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  user: state.user.user,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
