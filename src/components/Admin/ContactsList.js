@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { deleteContact } from "../../api/contactApi";
 import { fetchContacts } from "../../redux/actions/contactActions";
 
