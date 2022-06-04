@@ -48,8 +48,11 @@ const Header = () => {
           <Nav>
             <Nav.Link href="/admin/dashboard">Dashboard</Nav.Link>
           </Nav>
-          <Nav className="me-auto">
+          <Nav>
             <Nav.Link href="/admin/users">Users</Nav.Link>
+          </Nav>
+          <Nav className="me-auto">
+            <Nav.Link href="/admin/contacts">Contact Messages</Nav.Link>
           </Nav>
           {isLogin() && (
             <div className={classes.logoutButtonContainer}>

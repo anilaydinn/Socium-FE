@@ -20,4 +20,35 @@ const createContact = async (name, surname, email, message) => {
   return response.status === 201 ? response.data : null;
 };
 
-export { createContact };
+const getContacts = async () => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.get("http://localhost:8080/admin/contacts", {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+      Authorization: bearerToken,
+    },
+  });
+
+  return response.status === 200 ? response.data : null;
+};
+
+const deleteContact = async (contactId) => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.delete(
+    `http://localhost:8080/admin/contacts/${contactId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 204 ? true : false;
+};
+
+export { createContact, getContacts, deleteContact };

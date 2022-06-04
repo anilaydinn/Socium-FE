@@ -15,8 +15,8 @@ const DashboardInformations = (props) => {
   return (
     <div className="container">
       <h1>Dashboard</h1>
-      <div className="row mt-5">
-        <div className="col-md-3">
+      <div className="row mt-5 justify-content-center">
+        <div className="d-flex col-md-3 col-sm-6 justify-content-center">
           <Card
             bg={"light"}
             key={"light"}
@@ -35,7 +35,7 @@ const DashboardInformations = (props) => {
             </Card.Body>
           </Card>
         </div>
-        <div className="col-md-3">
+        <div className="d-flex col-md-3 col-sm-6 justify-content-center">
           <Card
             bg={"light"}
             key={"light"}
@@ -54,7 +54,7 @@ const DashboardInformations = (props) => {
             </Card.Body>
           </Card>
         </div>
-        <div className="col-md-3">
+        <div className="d-flex col-md-3 col-sm-6 justify-content-center">
           <Card
             bg={"light"}
             key={"light"}
@@ -73,7 +73,7 @@ const DashboardInformations = (props) => {
             </Card.Body>
           </Card>
         </div>
-        <div className="col-md-3">
+        <div className="d-flex col-md-3 col-sm-6 justify-content-center">
           <Card
             bg={"light"}
             key={"light"}
