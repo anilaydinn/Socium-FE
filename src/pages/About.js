@@ -12,7 +12,7 @@ const About = (props) => {
     <div>
       <Header />
       {searchedUsers && searchedUsers.length > 0 && <SearchedUsers />}
-      {!searchedUsers && <AboutBox />}
+      {(!searchedUsers || searchedUsers.length == 0) && <AboutBox />}
       <Footer />
     </div>
   );

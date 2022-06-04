@@ -11,7 +11,7 @@ const Contact = (props) => {
     <div>
       <Header />
       {searchedUsers && searchedUsers.length > 0 && <SearchedUsers />}
-      {!searchedUsers && <ContactBox />}
+      {(!searchedUsers || searchedUsers.length == 0) && <ContactBox />}
     </div>
   );
 };
