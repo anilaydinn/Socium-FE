@@ -45,6 +45,9 @@ const Header = () => {
         <Navbar.Brand href="/admin">Socium Admin</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
+          <Nav>
+            <Nav.Link href="/admin/dashboard">Dashboard</Nav.Link>
+          </Nav>
           <Nav className="me-auto">
             <Nav.Link href="/admin/users">Users</Nav.Link>
           </Nav>

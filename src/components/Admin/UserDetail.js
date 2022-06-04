@@ -5,7 +5,6 @@ import {
   fetchAdminUserPosts,
 } from "../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
-import Feed from "../../components/Home/Feed";
 import AdminUserFeed from "./AdminUserFeed";
 
 const UserDetail = (props) => {
