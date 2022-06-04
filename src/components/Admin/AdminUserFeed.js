@@ -1,8 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { deleteAdminUserPost } from "../../api";
+import { fetchAdminUserPosts } from "../../redux/actions/userActions";
 
 const AdminUserFeed = (props) => {
-  const { feed } = props;
+  const { feed, fetchAdminUserPosts } = props;
+
+  const handleDeletePost = async () => {
+    await deleteAdminUserPost(feed.id, feed.userId);
+    fetchAdminUserPosts(feed.userId);
+  };
 
   return (
     <div className="row">
@@ -33,7 +40,12 @@ const AdminUserFeed = (props) => {
                   <br />
                 </p>
 
-                <button className="btn btn-sm btn-danger">Delete</button>
+                <button
+                  className="btn btn-sm btn-danger"
+                  onClick={() => handleDeletePost()}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>
@@ -43,4 +55,15 @@ const AdminUserFeed = (props) => {
   );
 };
 
-export default AdminUserFeed;
+const mapStateToProps = (state) => ({
+  adminUser: state.user.adminUser,
+  adminUserFeeds: state.post.adminUserFeeds,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAdminUserPosts: (userId) => dispatch(fetchAdminUserPosts(userId)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminUserFeed);

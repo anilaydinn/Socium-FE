@@ -112,6 +112,23 @@ const getAdminUserPosts = async (userId) => {
   return response.status === 200 ? response.data : null;
 };
 
+const deleteAdminUserPost = async (postId, userId) => {
+  const bearerToken = generateBearerToken();
+  const response = await axios.delete(
+    `http://localhost:8080/admin/users/${userId}/posts/${postId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
 export {
   createPost,
   getPosts,
@@ -119,4 +136,5 @@ export {
   likePost,
   sendCommentToPost,
   getAdminUserPosts,
+  deleteAdminUserPost,
 };

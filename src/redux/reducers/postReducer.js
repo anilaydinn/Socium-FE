@@ -2,6 +2,7 @@ import {
   SET_HOMEPAGE_FEEDS,
   SET_USER_FEEDS,
   SET_ADMIN_USER_FEEDS,
+  REMOVE_ADMIN_USER_FEED,
 } from "../actions/types";
 
 export default (state = {}, action) => {

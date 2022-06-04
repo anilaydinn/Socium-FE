@@ -1,5 +1,11 @@
+import axios from "axios";
+import { generateBearerToken } from "../../helpers/helpers";
 import { getPosts, getUserPosts } from "../../api";
-import { SET_HOMEPAGE_FEEDS, SET_USER_FEEDS } from "./types";
+import {
+  REMOVE_ADMIN_USER_FEED,
+  SET_HOMEPAGE_FEEDS,
+  SET_USER_FEEDS,
+} from "./types";
 
 export const fetchPosts = (userId, friendIds) => async (dispatch) => {
   let friendIdList = "";
@@ -23,5 +29,22 @@ export const fetchUserPosts = (userId) => async (dispatch) => {
   dispatch({
     type: SET_USER_FEEDS,
     payload: posts,
+  });
+};
+
+export const removeAdminUserPost = (postId, userId) => async (dispatch) => {
+  const bearerToken = generateBearerToken();
+  await axios.delete(`http://localhost:8080/users/${userId}/posts/${postId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers":
+        "Origin, X-Requested-With, Content-Type, Accept",
+      Authorization: bearerToken,
+    },
+  });
+
+  dispatch({
+    type: REMOVE_ADMIN_USER_FEED,
   });
 };
