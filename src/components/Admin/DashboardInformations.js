@@ -47,7 +47,10 @@ const DashboardInformations = (props) => {
               <b>Activated User Count</b>
             </Card.Header>
             <Card.Body>
-              <Card.Title>Todo</Card.Title>
+              <Card.Title>
+                {adminDashboardInformations &&
+                  adminDashboardInformations.activatedUserCount}
+              </Card.Title>
             </Card.Body>
           </Card>
         </div>

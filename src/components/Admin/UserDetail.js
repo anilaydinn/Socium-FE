@@ -40,14 +40,16 @@ const UserDetail = (props) => {
             {adminUser && adminUser.description ? adminUser.description : "-"}{" "}
             <br />
             <b>User Type:</b> {adminUser && adminUser.userType} <br />
-            <b>Is Activated:</b> {adminUser && adminUser.isActivated} <br />
+            <b>Is Activated:</b>{" "}
+            {adminUser && adminUser.isActivated ? "Activated" : "Not Activated"}{" "}
+            <br />
             <b>Created At:</b> {adminUser && adminUser.createdAt} <br />
             <b>Latitude:</b> {adminUser && adminUser.latitude} <br />
             <b>Longitude:</b> {adminUser && adminUser.longitude} <br />
           </div>
         )}
       </div>
-      <h2 className="mt-5">User Posts</h2>
+      {adminUserFeeds && <h2 className="mt-5">User Posts</h2>}
       <div className="row mt-3">
         {adminUserFeeds &&
           adminUserFeeds.map((post) => <AdminUserFeed feed={post} />)}
