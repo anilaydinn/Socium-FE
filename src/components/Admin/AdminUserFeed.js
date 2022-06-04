@@ -25,9 +25,9 @@ const AdminUserFeed = (props) => {
                   feed.user && feed.user.surname
                 }`}</h6>
                 <p className="card-text">
-                  <b>Description:</b>
+                  {feed.description && <b>Description:</b>}
                   {feed.description}
-                  <br />
+                  {feed.description && <br />}
                   <b>Like Count:</b>{" "}
                   {feed.whoLikesUserIds ? feed.whoLikesUserIds.length : 0}{" "}
                   <br />
