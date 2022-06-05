@@ -2,8 +2,9 @@ import axios from "axios";
 import { generateBearerToken } from "../helpers/helpers";
 
 const registerUser = async (user) => {
+  const apiBaseURL = window.API_BASE_URL;
   const response = await axios.post(
-    "http://localhost:8080/api/register",
+    `${apiBaseURL}/api/register`,
     {
       email: user.email,
       password: user.password,
@@ -27,8 +28,9 @@ const registerUser = async (user) => {
 };
 
 const loginUser = async (email, password) => {
+  const apiBaseURL = window.API_BASE_URL;
   const response = await axios.post(
-    "http://localhost:8080/api/login",
+    `${apiBaseURL}/api/login`,
     {
       email: email,
       password: password,
@@ -46,14 +48,16 @@ const loginUser = async (email, password) => {
 };
 
 const forgotPassword = async (email) => {
-  await axios.post("http://localhost:8080/api/forgotPassword", {
+  const apiBaseURL = window.API_BASE_URL;
+  await axios.post(`${apiBaseURL}/api/forgotPassword`, {
     email: email,
   });
 };
 
 const resetPassword = async (id, password) => {
+  const apiBaseURL = window.API_BASE_URL;
   await axios.patch(
-    `http://localhost:8080/api/resetPassword/${id}`,
+    `${apiBaseURL}/api/resetPassword/${id}`,
     {
       password: password,
     },
@@ -69,24 +73,23 @@ const resetPassword = async (id, password) => {
 };
 
 const getUser = async (userId) => {
-  const response = await axios.get(
-    `http://localhost:8080/api/users/${userId}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Origin, X-Requested-With, Content-Type, Accept",
-      },
-    }
-  );
+  const apiBaseURL = window.API_BASE_URL;
+  const response = await axios.get(`${apiBaseURL}/api/users/${userId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers":
+        "Origin, X-Requested-With, Content-Type, Accept",
+    },
+  });
   return response.status === 200 ? response.data : null;
 };
 
 const updateUser = async (userId, description, profileImage) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.patch(
-    `http://localhost:8080/user/users/${userId}`,
+    `${apiBaseURL}/user/users/${userId}`,
     {
       description: description,
       profileImage: profileImage,
@@ -106,9 +109,10 @@ const updateUser = async (userId, description, profileImage) => {
 };
 
 const sendFriendRequest = async (userId, targetUserId) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   await axios.post(
-    `http://localhost:8080/user/users/${targetUserId}/friendRequests`,
+    `${apiBaseURL}/user/users/${targetUserId}/friendRequests`,
     {
       userId: userId,
     },
@@ -125,10 +129,11 @@ const sendFriendRequest = async (userId, targetUserId) => {
 };
 
 const getUserFriendRequests = async (userId) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
 
   const response = await axios.get(
-    `http://localhost:8080/user/users/${userId}/friendRequests`,
+    `${apiBaseURL}/user/users/${userId}/friendRequests`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -144,9 +149,10 @@ const getUserFriendRequests = async (userId) => {
 };
 
 const acceptOrDeclineFriendRequest = async (userId, targetUserId, accept) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   await axios.post(
-    `http://localhost:8080/user/users/${userId}/friendRequests/${targetUserId}`,
+    `${apiBaseURL}/user/users/${userId}/friendRequests/${targetUserId}`,
     {
       accept: accept,
     },
@@ -163,9 +169,10 @@ const acceptOrDeclineFriendRequest = async (userId, targetUserId, accept) => {
 };
 
 const getUserFriends = async (userId) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.get(
-    "http://localhost:8080/user/users/" + userId + "/friends",
+    `${apiBaseURL}/user/users/${userId}/friends`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -181,9 +188,10 @@ const getUserFriends = async (userId) => {
 };
 
 const getUsersWithFilter = async (filter) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.get(
-    `http://localhost:8080/user/users?filter=${filter}`,
+    `${apiBaseURL}/user/users?filter=${filter}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -199,10 +207,11 @@ const getUsersWithFilter = async (filter) => {
 };
 
 const getAllUsers = async (page, size, filter) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
 
   const response = await axios.get(
-    `http://localhost:8080/admin/users?page=${page}&size=${size}&filter=${
+    `${apiBaseURL}/admin/users?page=${page}&size=${size}&filter=${
       filter ? filter : ""
     }`,
     {
@@ -219,18 +228,16 @@ const getAllUsers = async (page, size, filter) => {
 };
 
 const getAdminUser = async (userId) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
-  const response = await axios.get(
-    `http://localhost:8080/admin/users/${userId}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Authorization: bearerToken,
-      },
-    }
-  );
+  const response = await axios.get(`${apiBaseURL}/admin/users/${userId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+      Authorization: bearerToken,
+    },
+  });
 
   return response.status === 200 ? response.data : null;
 };

@@ -21,6 +21,12 @@ const store = createStore({
   },
 });
 
+if (window.location.href.includes("http://localhost:3000")) {
+  window.API_BASE_URL = "http://localhost:8080";
+} else if (window.location.href.includes("https://socium-fe.herokuapp.com")) {
+  window.API_BASE_URL = "https://socium-be.herokuapp.com";
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

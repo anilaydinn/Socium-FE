@@ -2,8 +2,9 @@ import axios from "axios";
 import { generateBearerToken, getUserId } from "../helpers/helpers";
 
 const createPost = async (post) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
-  const response = await axios.post("http://localhost:8080/user/posts", post, {
+  const response = await axios.post(`${apiBaseURL}/user/posts`, post, {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -17,9 +18,10 @@ const createPost = async (post) => {
 };
 
 const getPosts = async (userId, friendIds) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.get(
-    `http://localhost:8080/user/posts?userId=${userId}&homepage=true&friendIdList=${friendIds}`,
+    `${apiBaseURL}/user/posts?userId=${userId}&homepage=true&friendIdList=${friendIds}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -35,9 +37,10 @@ const getPosts = async (userId, friendIds) => {
 };
 
 const getUserPosts = async (userId) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.get(
-    `http://localhost:8080/user/posts?userId=${userId}`,
+    `${apiBaseURL}/user/posts?userId=${userId}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -53,9 +56,10 @@ const getUserPosts = async (userId) => {
 };
 
 const likePost = async (postId, userId) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.patch(
-    `http://localhost:8080/user/posts/${postId}/like`,
+    `${apiBaseURL}/user/posts/${postId}/like`,
     {
       userId: userId,
     },
@@ -74,9 +78,10 @@ const likePost = async (postId, userId) => {
 };
 
 const sendCommentToPost = async (postId, content) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.post(
-    `http://localhost:8080/user/posts/${postId}/comments`,
+    `${apiBaseURL}/user/posts/${postId}/comments`,
     {
       userId: getUserId(),
       content: content,
@@ -96,9 +101,10 @@ const sendCommentToPost = async (postId, content) => {
 };
 
 const getAdminUserPosts = async (userId) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.get(
-    `http://localhost:8080/admin/users/${userId}/posts`,
+    `${apiBaseURL}/admin/users/${userId}/posts`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -113,9 +119,10 @@ const getAdminUserPosts = async (userId) => {
 };
 
 const deleteAdminUserPost = async (postId, userId) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.delete(
-    `http://localhost:8080/admin/users/${userId}/posts/${postId}`,
+    `${apiBaseURL}/admin/users/${userId}/posts/${postId}`,
     {
       headers: {
         "Content-Type": "application/json",

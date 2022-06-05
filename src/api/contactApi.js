@@ -2,9 +2,10 @@ import axios from "axios";
 import { generateBearerToken } from "../helpers/helpers";
 
 const createContact = async (name, surname, email, message) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.post(
-    "http://localhost:8080/api/contacts",
+    `${apiBaseURL}/api/contacts`,
     { name, surname, email, message },
     {
       headers: {
@@ -21,8 +22,9 @@ const createContact = async (name, surname, email, message) => {
 };
 
 const getContacts = async () => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
-  const response = await axios.get("http://localhost:8080/admin/contacts", {
+  const response = await axios.get(`${apiBaseURL}/admin/contacts`, {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -35,9 +37,10 @@ const getContacts = async () => {
 };
 
 const deleteContact = async (contactId) => {
+  const apiBaseURL = window.API_BASE_URL;
   const bearerToken = generateBearerToken();
   const response = await axios.delete(
-    `http://localhost:8080/admin/contacts/${contactId}`,
+    `${apiBaseURL}/admin/contacts/${contactId}`,
     {
       headers: {
         "Content-Type": "application/json",
