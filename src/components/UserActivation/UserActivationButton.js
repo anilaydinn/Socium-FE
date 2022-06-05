@@ -17,6 +17,7 @@ const UserActivationButton = () => {
 
   const handleActivateUser = async () => {
     await activateUser(id);
+    window.location.href = "/";
   };
 
   return (
