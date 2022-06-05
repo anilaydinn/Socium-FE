@@ -72,6 +72,11 @@ const ProfileContent = (props) => {
                     style={{ marginRight: "10px" }}
                   />
                   Friend Requests
+                  <span className="text-muted tx-12">
+                    {user &&
+                      user.friendRequestUserIDs &&
+                      user.friendRequestUserIDs.length}
+                  </span>
                 </Link>
                 <Link
                   className={`pt-1px d-none d-md-block ${classes.link}`}

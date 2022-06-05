@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { Button } from "react-bootstrap";
+import { Button, Alert } from "react-bootstrap";
 import { createContact } from "../../api";
 
 const useStyles = makeStyles({
@@ -35,10 +35,15 @@ const ContactBox = () => {
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [createContactSuccessAlert, setCreateContactSuccessAlert] =
+    useState(false);
 
   const handleCreateContact = async (e) => {
     e.preventDefault();
-    createContact(name, surname, email, message);
+    const resp = createContact(name, surname, email, message);
+    if (resp) {
+      setCreateContactSuccessAlert(true);
+    }
   };
 
   return (
@@ -132,6 +137,11 @@ const ContactBox = () => {
                       </div>
                     </div>
                   </form>
+                  {createContactSuccessAlert && (
+                    <Alert key={"success"} variant={"success"}>
+                      Your message has been sent successfully!
+                    </Alert>
+                  )}
                 </div>
               </div>
             </div>

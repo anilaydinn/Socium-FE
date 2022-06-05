@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { Button } from "react-bootstrap";
+import { Button, Alert } from "react-bootstrap";
 import { registerUser as registerUserApi } from "../../api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -42,6 +42,7 @@ const RegisterBox = () => {
   const [startDate] = useState(new Date());
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [registerSuccessAlert, setRegisterSuccessAlert] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -56,7 +57,7 @@ const RegisterBox = () => {
       longitude,
     });
     if (resp) {
-      window.location.href = "/login";
+      setRegisterSuccessAlert(true);
     }
   };
 
@@ -79,7 +80,7 @@ const RegisterBox = () => {
                     onSubmit={(e) => handleRegister(e)}
                     className="form-horizontal ng-pristine ng-valid"
                   >
-                    <div className="form-group">
+                    <div className="form-group w-100">
                       <label className="col-sm-2 control-label" htmlFor="name">
                         Name
                       </label>
@@ -184,6 +185,12 @@ const RegisterBox = () => {
                       </div>
                     </div>
                   </form>
+                  {registerSuccessAlert && (
+                    <Alert key={"success"} variant={"success"}>
+                      You have successfully registered! Please check{" "}
+                      <b>{email}</b> email to activate your account!
+                    </Alert>
+                  )}
                 </div>
               </div>
             </div>
