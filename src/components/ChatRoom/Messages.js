@@ -74,7 +74,7 @@ const Messages = (props) => {
     }
     fetchChatTargetUser(userId);
     fetchUser(getUserId());
-  }, []);
+  }, [user != undefined && chatTargetUser != undefined]);
 
   return (
     <div className="container py-5">
