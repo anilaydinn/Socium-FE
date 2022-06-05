@@ -60,7 +60,7 @@ const Header = (props) => {
     <Navbar className="mt-4" bg="light" expand="lg">
       <Container>
         <Navbar.Brand style={{ color: "#17a2b8" }} href="/">
-          Socium
+          Test Deploy
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
