@@ -19,6 +19,7 @@ import Dashboard from "./pages/Admin/Dashboard";
 import Users from "./pages/Admin/Users";
 import User from "./pages/Admin/User";
 import Contacts from "./pages/Admin/Contacts";
+import UserActivation from "./pages/UserActivation";
 
 function App() {
   return (
@@ -89,6 +90,7 @@ function App() {
           <Route path="/profile/friends" element={<ProfileFriends />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/reset-password/:id" element={<ResetPassword />} />
+          <Route path="/activation/:id" element={<UserActivation />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -242,6 +242,19 @@ const getAdminUser = async (userId) => {
   return response.status === 200 ? response.data : null;
 };
 
+const activateUser = async (userId) => {
+  const apiBaseURL = window.API_BASE_URL;
+  const response = await axios.get(`${apiBaseURL}/api/activation/${userId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+    },
+  });
+
+  return response.status === 200 ? response.data : null;
+};
+
 export {
   registerUser,
   loginUser,
@@ -256,4 +269,5 @@ export {
   getUsersWithFilter,
   getAllUsers,
   getAdminUser,
+  activateUser,
 };
