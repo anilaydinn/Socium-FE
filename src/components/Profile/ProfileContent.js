@@ -8,6 +8,7 @@ import CreateFeed from "../Home/CreateFeed";
 import { getUserId, isLogin } from "../../helpers/helpers";
 import { fetchUserPosts } from "../../redux/actions/postActions";
 import { fetchUser, fetchNearUsers } from "../../redux/actions/userActions";
+import { sendFriendRequest } from "../../api";
 
 const useStyles = makeStyles({
   link: {
@@ -44,6 +45,10 @@ const ProfileContent = (props) => {
       fetchNearUsers(getUserId(), user.latitude, user.longitude);
     }
   }, [user != undefined]);
+
+  const handleSendFriendRequest = async (userId) => {
+    await sendFriendRequest(getUserId(), userId);
+  };
 
   return (
     <div className="container mb-5">
@@ -203,7 +208,10 @@ const ProfileContent = (props) => {
                               </p>
                             </div>
                           </div>
-                          <button className="btn btn-icon">
+                          <button
+                            onClick={() => handleSendFriendRequest(user.id)}
+                            className="btn btn-icon"
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
