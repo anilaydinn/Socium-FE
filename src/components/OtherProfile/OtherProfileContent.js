@@ -6,7 +6,7 @@ import "../../style/profile.css";
 import Feed from "../Home/Feed";
 import { getUserId, isLogin } from "../../helpers/helpers";
 import { fetchUserPosts } from "../../redux/actions/postActions";
-import { fetchUser } from "../../redux/actions/userActions";
+import { fetchUser, fetchNearUsers } from "../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
 import { sendFriendRequest } from "../../api";
 
@@ -26,7 +26,14 @@ const useStyles = makeStyles({
 
 const OtherProfileContent = (props) => {
   const { userId } = useParams();
-  const { fetchUserPosts, userFeeds, fetchUser, user } = props;
+  const {
+    fetchUserPosts,
+    userFeeds,
+    fetchUser,
+    user,
+    fetchNearUsers,
+    nearUsers,
+  } = props;
   const classes = useStyles();
 
   useEffect(() => {
@@ -192,228 +199,68 @@ const OtherProfileContent = (props) => {
                     <h6 className="card-title">
                       suggestions for you by geolocation
                     </h6>
-                    <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                      <div className="d-flex align-items-center hover-pointer">
-                        <img
-                          className="img-xs rounded-circle"
-                          src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                          alt=""
-                        />
-                        <div
-                          className={`ml-2 ${classes.geoLocationTextContainer}`}
-                        >
-                          <p className="m-0">Mike Popescu</p>
-                          <p className="tx-11 text-muted">12 Mutual Friends</p>
-                        </div>
-                      </div>
-                      <button className="btn btn-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          className="feather feather-user-plus"
-                          data-toggle="tooltip"
-                          title=""
-                          data-original-title="Connect"
-                        >
-                          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="8.5" cy="7" r="4"></circle>
-                          <line x1="20" y1="8" x2="20" y2="14"></line>
-                          <line x1="23" y1="11" x2="17" y2="11"></line>
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                      <div className="d-flex align-items-center hover-pointer">
-                        <img
-                          className="img-xs rounded-circle"
-                          src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                          alt=""
-                        />
-                        <div
-                          className={`ml-2 ${classes.geoLocationTextContainer}`}
-                        >
-                          <p className="m-0">Mike Popescu</p>
-                          <p className="tx-11 text-muted">12 Mutual Friends</p>
-                        </div>
-                      </div>
-                      <button className="btn btn-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          className="feather feather-user-plus"
-                          data-toggle="tooltip"
-                          title=""
-                          data-original-title="Connect"
-                        >
-                          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="8.5" cy="7" r="4"></circle>
-                          <line x1="20" y1="8" x2="20" y2="14"></line>
-                          <line x1="23" y1="11" x2="17" y2="11"></line>
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                      <div className="d-flex align-items-center hover-pointer">
-                        <img
-                          className="img-xs rounded-circle"
-                          src="https://bootdey.com/img/Content/avatar/avatar4.png"
-                          alt=""
-                        />
-                        <div
-                          className={`ml-2 ${classes.geoLocationTextContainer}`}
-                        >
-                          <p className="m-0">Mike Popescu</p>
-                          <p className="tx-11 text-muted">12 Mutual Friends</p>
-                        </div>
-                      </div>
-                      <button className="btn btn-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          className="feather feather-user-plus"
-                          data-toggle="tooltip"
-                          title=""
-                          data-original-title="Connect"
-                        >
-                          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="8.5" cy="7" r="4"></circle>
-                          <line x1="20" y1="8" x2="20" y2="14"></line>
-                          <line x1="23" y1="11" x2="17" y2="11"></line>
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                      <div className="d-flex align-items-center hover-pointer">
-                        <img
-                          className="img-xs rounded-circle"
-                          src="https://bootdey.com/img/Content/avatar/avatar5.png"
-                          alt=""
-                        />
-                        <div
-                          className={`ml-2 ${classes.geoLocationTextContainer}`}
-                        >
-                          <p className="m-0">Mike Popescu</p>
-                          <p className="tx-11 text-muted">12 Mutual Friends</p>
-                        </div>
-                      </div>
-                      <button className="btn btn-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          className="feather feather-user-plus"
-                          data-toggle="tooltip"
-                          title=""
-                          data-original-title="Connect"
-                        >
-                          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="8.5" cy="7" r="4"></circle>
-                          <line x1="20" y1="8" x2="20" y2="14"></line>
-                          <line x1="23" y1="11" x2="17" y2="11"></line>
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                      <div className="d-flex align-items-center hover-pointer">
-                        <img
-                          className="img-xs rounded-circle"
-                          src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                          alt=""
-                        />
-                        <div
-                          className={`ml-2 ${classes.geoLocationTextContainer}`}
-                        >
-                          <p className="m-0">Mike Popescu</p>
-                          <p className="tx-11 text-muted">12 Mutual Friends</p>
-                        </div>
-                      </div>
-                      <button className="btn btn-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          className="feather feather-user-plus"
-                          data-toggle="tooltip"
-                          title=""
-                          data-original-title="Connect"
-                        >
-                          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="8.5" cy="7" r="4"></circle>
-                          <line x1="20" y1="8" x2="20" y2="14"></line>
-                          <line x1="23" y1="11" x2="17" y2="11"></line>
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                      <div className="d-flex align-items-center hover-pointer">
-                        <img
-                          className="img-xs rounded-circle"
-                          src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                          alt=""
-                        />
-                        <div
-                          className={`ml-2 ${classes.geoLocationTextContainer}`}
-                        >
-                          <p className="m-0">Mike Popescu</p>
-                          <p className="tx-11 text-muted">12 Mutual Friends</p>
-                        </div>
-                      </div>
-                      <button className="btn btn-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          className="feather feather-user-plus"
-                          data-toggle="tooltip"
-                          title=""
-                          data-original-title="Connect"
-                        >
-                          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="8.5" cy="7" r="4"></circle>
-                          <line x1="20" y1="8" x2="20" y2="14"></line>
-                          <line x1="23" y1="11" x2="17" y2="11"></line>
-                        </svg>
-                      </button>
-                    </div>
+                    {nearUsers &&
+                      nearUsers.map((user) => {
+                        if (
+                          user.friendRequestUserIDs &&
+                          !user.friendRequestUserIDs.includes(getUserId()) &&
+                          user.friendIds &&
+                          !user.friendIds.includes(getUserId())
+                        ) {
+                          return (
+                            <div
+                              key={user.id}
+                              className="d-flex justify-content-between mb-2 pb-2 border-bottom"
+                            >
+                              <div className="d-flex align-items-center hover-pointer">
+                                {user.profileImage && (
+                                  <img
+                                    className="img-xs rounded-circle"
+                                    src={user.profileImage}
+                                  />
+                                )}
+                                <div
+                                  className={`ml-2 ${classes.geoLocationTextContainer}`}
+                                >
+                                  <p className="m-0">
+                                    <Link
+                                      className={classes.link}
+                                      to={`/profile/${user.id}`}
+                                    >
+                                      {user.name} {user.surname}
+                                    </Link>
+                                  </p>
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => handleSendFriendRequest(user.id)}
+                                className="btn btn-icon"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  className="feather feather-user-plus"
+                                  data-toggle="tooltip"
+                                  title=""
+                                  data-original-title="Connect"
+                                >
+                                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                  <circle cx="8.5" cy="7" r="4"></circle>
+                                  <line x1="20" y1="8" x2="20" y2="14"></line>
+                                  <line x1="23" y1="11" x2="17" y2="11"></line>
+                                </svg>
+                              </button>
+                            </div>
+                          );
+                        }
+                      })}
                   </div>
                 </div>
               </div>
@@ -428,12 +275,14 @@ const OtherProfileContent = (props) => {
 const mapStateToProps = (state) => ({
   userFeeds: state.post.userFeeds,
   user: state.user.user,
+  nearUsers: state.user.nearUsers,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUserPosts: (userId) => dispatch(fetchUserPosts(userId)),
     fetchUser: (userId) => dispatch(fetchUser(userId)),
+    fetchNearUsers: (userId) => dispatch(fetchNearUsers(userId)),
   };
 };
 
