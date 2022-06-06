@@ -27,12 +27,21 @@ const Messages = (props) => {
   const chatsRef = firebase.firestore().collection("chats");
 
   const handleCreateChat = () => {
-    if (chat == undefined) {
-      const chatIdValue = user.id + chatTargetUser.id;
-      chatsRef.doc(chatIdValue).set({
-        messages: [],
+    const chatIdValue = user.id + chatTargetUser.id;
+    chatsRef.doc(chatIdValue);
+
+    chatsRef
+      .doc(chatIdValue)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          return;
+        } else {
+          chatsRef.doc(chatIdValue).set({
+            messages: [],
+          });
+        }
       });
-    }
   };
 
   const handleSendMessage = (e) => {
