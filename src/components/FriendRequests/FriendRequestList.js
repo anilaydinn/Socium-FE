@@ -27,7 +27,7 @@ const FriendRequestList = (props) => {
       )}
       {friendRequests &&
         friendRequests.map((friendRequest) => (
-          <div className="row">
+          <div key={friendRequest.id} className="row">
             <div className="col-md-12">
               <div className="card mb-3">
                 <div className="row g-0">
@@ -66,7 +66,17 @@ const FriendRequestList = (props) => {
                       >
                         Accept
                       </button>
-                      <button className="btn btn-sm btn-danger">Decline</button>
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() =>
+                          handleAcceptOrDeclineFriendRequest(
+                            friendRequest.id,
+                            false
+                          )
+                        }
+                      >
+                        Decline
+                      </button>
                     </div>
                   </div>
                 </div>

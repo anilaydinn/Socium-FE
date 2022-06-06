@@ -48,6 +48,7 @@ const ProfileContent = (props) => {
 
   const handleSendFriendRequest = async (userId) => {
     await sendFriendRequest(getUserId(), userId);
+    fetchNearUsers(getUserId(), user.latitude, user.longitude);
   };
 
   return (
@@ -188,53 +189,62 @@ const ProfileContent = (props) => {
                       suggestions for you by geolocation
                     </h6>
                     {nearUsers &&
-                      nearUsers.map((user) => (
-                        <div
-                          key={user.id}
-                          className="d-flex justify-content-between mb-2 pb-2 border-bottom"
-                        >
-                          <div className="d-flex align-items-center hover-pointer">
-                            {user.profileImage && (
-                              <img
-                                className="img-xs rounded-circle"
-                                src={user.profileImage}
-                              />
-                            )}
+                      nearUsers.map((user) => {
+                        if (
+                          user.friendRequestUserIDs &&
+                          !user.friendRequestUserIDs.includes(getUserId()) &&
+                          user.friendIds &&
+                          !user.friendIds.includes(getUserId())
+                        ) {
+                          return (
                             <div
-                              className={`ml-2 ${classes.geoLocationTextContainer}`}
+                              key={user.id}
+                              className="d-flex justify-content-between mb-2 pb-2 border-bottom"
                             >
-                              <p className="m-0">
-                                {user.name} {user.surname}
-                              </p>
+                              <div className="d-flex align-items-center hover-pointer">
+                                {user.profileImage && (
+                                  <img
+                                    className="img-xs rounded-circle"
+                                    src={user.profileImage}
+                                  />
+                                )}
+                                <div
+                                  className={`ml-2 ${classes.geoLocationTextContainer}`}
+                                >
+                                  <p className="m-0">
+                                    {user.name} {user.surname}
+                                  </p>
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => handleSendFriendRequest(user.id)}
+                                className="btn btn-icon"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  className="feather feather-user-plus"
+                                  data-toggle="tooltip"
+                                  title=""
+                                  data-original-title="Connect"
+                                >
+                                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                  <circle cx="8.5" cy="7" r="4"></circle>
+                                  <line x1="20" y1="8" x2="20" y2="14"></line>
+                                  <line x1="23" y1="11" x2="17" y2="11"></line>
+                                </svg>
+                              </button>
                             </div>
-                          </div>
-                          <button
-                            onClick={() => handleSendFriendRequest(user.id)}
-                            className="btn btn-icon"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              className="feather feather-user-plus"
-                              data-toggle="tooltip"
-                              title=""
-                              data-original-title="Connect"
-                            >
-                              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                              <circle cx="8.5" cy="7" r="4"></circle>
-                              <line x1="20" y1="8" x2="20" y2="14"></line>
-                              <line x1="23" y1="11" x2="17" y2="11"></line>
-                            </svg>
-                          </button>
-                        </div>
-                      ))}
+                          );
+                        }
+                      })}
                   </div>
                 </div>
               </div>
