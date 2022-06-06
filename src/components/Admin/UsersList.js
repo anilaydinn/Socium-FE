@@ -69,7 +69,11 @@ const UsersList = (props) => {
                   {user.description ? user.description : "-"}
                 </td>
                 <td align="center">
-                  {user.profileImage ? <img src={user.profileImage} /> : "-"}
+                  {user.profileImage ? (
+                    <img src={user.profileImage} width="60" />
+                  ) : (
+                    "-"
+                  )}
                 </td>
                 <td align="center">{user.userType}</td>
                 <td align="center">

@@ -71,7 +71,7 @@ const ProfileContent = (props) => {
                     width={24}
                     style={{ marginRight: "10px" }}
                   />
-                  Friend Requests
+                  Friend Requests{" "}
                   <span className="text-muted tx-12">
                     {user &&
                       user.friendRequestUserIDs &&
