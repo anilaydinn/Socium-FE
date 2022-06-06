@@ -25,13 +25,12 @@ const UserDetail = (props) => {
       <div className="row mt-3">
         {adminUser && adminUser.profileImage && (
           <div>
-            <div className="col-md-3">
-              <img src="https://picsum.photos/200" />
+            <div className="col-md-3 mb-4">
+              <img src={adminUser.profileImage} width="200" />
             </div>
-            <div className="col-md-8"></div>
           </div>
         )}
-        {adminUser && !adminUser.profileImage && (
+        {adminUser && (
           <div className="col-md-12">
             <b>ID:</b> {adminUser && adminUser.id} <br />
             <b>Email:</b> {adminUser && adminUser.email} <br />
