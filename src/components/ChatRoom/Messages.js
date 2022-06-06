@@ -38,19 +38,19 @@ const Messages = (props) => {
         if (doc.exists) {
           getChatHandler(reverseChatIdValue);
           return;
-        }
-      });
-
-    chatsRef
-      .doc(chatIdValue)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          return;
         } else {
-          chatsRef.doc(chatIdValue).set({
-            messages: [],
-          });
+          chatsRef
+            .doc(chatIdValue)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                return;
+              } else {
+                chatsRef.doc(chatIdValue).set({
+                  messages: [],
+                });
+              }
+            });
         }
       });
   };
