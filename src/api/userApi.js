@@ -255,6 +255,28 @@ const activateUser = async (userId) => {
   return response.status === 200 ? response.data : null;
 };
 
+const getNearUsers = async (userId, latitude, longitude) => {
+  const apiBaseURL = window.API_BASE_URL;
+  const bearerToken = generateBearerToken();
+  const response = await axios.post(
+    `${apiBaseURL}/user/users/${userId}/near`,
+    {
+      latitude: latitude,
+      longitude: longitude,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
 export {
   registerUser,
   loginUser,
@@ -270,4 +292,5 @@ export {
   getAllUsers,
   getAdminUser,
   activateUser,
+  getNearUsers,
 };

@@ -11,6 +11,7 @@ export const SET_ADMIN_USERS = "SET_ADMIN_USERS";
 export const SET_ADMIN_USER = "SET_ADMIN_USER";
 export const SET_ADMIN_USER_FEEDS = "SET_ADMIN_USER_FEEDS";
 export const REMOVE_ADMIN_USER_FEED = "REMOVE_ADMIN_USER_FEED";
+export const SET_NEAR_USERS = "SET_NEAR_USERS";
 
 export const SET_CHAT = "SET_CHAT";
 

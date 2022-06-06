@@ -8,6 +8,7 @@ import {
   SET_ADMIN_USERS,
   SET_ADMIN_USER,
   SET_ADMIN_USER_FEEDS,
+  SET_NEAR_USERS,
 } from "./types";
 import {
   getAllUsers,
@@ -17,6 +18,7 @@ import {
   getUsersWithFilter,
   getAdminUser,
   getAdminUserPosts,
+  getNearUsers,
 } from "../../api";
 
 export const fetchUser = (userId) => async (dispatch) => {
@@ -103,3 +105,13 @@ export const fetchAdminUserPosts = (userId) => async (dispatch) => {
     payload: posts,
   });
 };
+
+export const fetchNearUsers =
+  (userId, latitude, longitude) => async (dispatch) => {
+    const nearUsers = await getNearUsers(userId, latitude, longitude);
+
+    dispatch({
+      type: SET_NEAR_USERS,
+      payload: nearUsers,
+    });
+  };

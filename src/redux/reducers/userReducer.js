@@ -7,6 +7,7 @@ import {
   RESET_SEARCHED_USERS,
   SET_ADMIN_USERS,
   SET_ADMIN_USER,
+  SET_NEAR_USERS,
 } from "../actions/types";
 
 export default (state = {}, action) => {
@@ -47,6 +48,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         adminUser: action.payload,
+      };
+    case SET_NEAR_USERS:
+      return {
+        ...state,
+        nearUsers: action.payload,
       };
     default:
       return state;
