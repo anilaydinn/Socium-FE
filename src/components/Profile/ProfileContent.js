@@ -184,7 +184,10 @@ const ProfileContent = (props) => {
                     </h6>
                     {nearUsers &&
                       nearUsers.map((user) => (
-                        <div className="d-flex justify-content-between mb-2 pb-2 border-bottom">
+                        <div
+                          key={user.id}
+                          className="d-flex justify-content-between mb-2 pb-2 border-bottom"
+                        >
                           <div className="d-flex align-items-center hover-pointer">
                             {user.profileImage && (
                               <img
