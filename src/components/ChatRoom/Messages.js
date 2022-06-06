@@ -28,7 +28,18 @@ const Messages = (props) => {
 
   const handleCreateChat = () => {
     const chatIdValue = user.id + chatTargetUser.id;
+    const reverseChatIdValue = chatTargetUser.id + user.id;
     chatsRef.doc(chatIdValue);
+
+    chatsRef
+      .doc(reverseChatIdValue)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          getChatHandler(reverseChatIdValue);
+          return;
+        }
+      });
 
     chatsRef
       .doc(chatIdValue)
