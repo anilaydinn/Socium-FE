@@ -186,6 +186,9 @@ const OtherProfileContent = (props) => {
           <div className="col-md-8 col-xl-6 middle-wrapper">
             <div className="row">
               {userFeeds &&
+                user &&
+                user.friendIds &&
+                user.friendIds.includes(getUserId()) &&
                 userFeeds.map((feed) => (
                   <Feed key={feed.id} col="12" feed={feed} />
                 ))}
