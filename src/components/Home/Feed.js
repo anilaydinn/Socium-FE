@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
-import { likePost, sendCommentToPost } from "../../api";
+import { likePost, sendCommentToPost, getWhoLikes } from "../../api";
 import { getUserId } from "../../helpers/helpers";
 import { fetchPosts, fetchUserPosts } from "../../redux/actions/postActions";
 import { Link } from "react-router-dom";
@@ -59,6 +59,11 @@ const Feed = (props) => {
   const { col, feed, fetchPosts, fetchUserPosts, user } = props;
   const classes = useStyles();
 
+  const [show, setShow] = useState(true);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const [content, setContent] = useState("");
   const [isSeeMore, setIsSeeMore] = useState(false);
 
@@ -70,6 +75,14 @@ const Feed = (props) => {
     } else {
       fetchUserPosts(getUserId());
     }
+  };
+
+  const handleGetWhoLikes = async () => {
+    let whoLikes = "";
+    for (let i = 0; i < feed.whoLikesUserIds.length; i++) {
+      whoLikes += feed.whoLikesUserIds[i] + ", ";
+    }
+    const resp = await getWhoLikes(feed.id, feed.whoLikesUserIds);
   };
 
   const handleSendComment = async (e) => {
@@ -132,7 +145,12 @@ const Feed = (props) => {
         </div>
         <div className={`${classes.cardFooter}`}>
           <div className="d-flex post-actions">
-            {feed.whoLikesUserIds && feed.whoLikesUserIds.length}
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => handleGetWhoLikes()}
+            >
+              {feed.whoLikesUserIds && feed.whoLikesUserIds.length}
+            </span>
             <a
               className="d-flex align-items-center text-muted mr-5"
               onClick={() => handleLikePost()}

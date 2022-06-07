@@ -136,6 +136,24 @@ const deleteAdminUserPost = async (postId, userId) => {
   return response.status === 200 ? response.data : null;
 };
 
+const getWhoLikes = async (postId, whoLikesUserIds) => {
+  const apiBaseURL = window.API_BASE_URL;
+  const bearerToken = generateBearerToken();
+  const response = await axios.get(
+    `${apiBaseURL}/user/posts/${postId}/likes?whoLikesUserIds=${whoLikesUserIds}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
 export {
   createPost,
   getPosts,
@@ -144,4 +162,5 @@ export {
   sendCommentToPost,
   getAdminUserPosts,
   deleteAdminUserPost,
+  getWhoLikes,
 };
