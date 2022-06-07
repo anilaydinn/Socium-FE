@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserId } from "../../helpers/helpers";
 import { fetchUserFriends } from "../../redux/actions/userActions";
+import { deleteUserFriend } from "../../api";
 
 const FriendList = (props) => {
   const { friends, fetchUserFriends } = props;
@@ -11,12 +12,19 @@ const FriendList = (props) => {
     fetchUserFriends(getUserId());
   }, []);
 
+  const handleRemoveFriend = async (friendId) => {
+    await deleteUserFriend(getUserId(), friendId);
+    fetchUserFriends(getUserId());
+  };
+
   return (
     <div className="container">
       <div className="row justify-content-center">
         <h4 className="text-center">Friends</h4>
       </div>
-      {!friends && <div className="text-center mt-5">No friend requests</div>}
+      {!friends && (
+        <div className="text-center mt-5">You don't have any friends.</div>
+      )}
       {friends &&
         friends.map((friend) => (
           <div key={friend.id} className="row">
@@ -54,6 +62,13 @@ const FriendList = (props) => {
                           Send Message
                         </button>
                       </a>
+                      <button
+                        style={{ marginRight: "5px" }}
+                        className="btn btn-sm btn-danger"
+                        onClick={() => handleRemoveFriend(friend.id)}
+                      >
+                        Remove friend
+                      </button>
                     </div>
                   </div>
                 </div>

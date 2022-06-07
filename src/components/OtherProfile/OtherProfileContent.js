@@ -101,7 +101,10 @@ const OtherProfileContent = (props) => {
                     <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
-                  Friends <span className="text-muted tx-12">3,765</span>
+                  Friends{" "}
+                  <span className="text-muted tx-12">
+                    {user && user.friendIds && user.friendIds.length}
+                  </span>
                 </Link>
               </div>
               <div className="edit-button-wrapper">

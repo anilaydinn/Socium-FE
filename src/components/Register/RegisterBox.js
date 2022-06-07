@@ -115,7 +115,7 @@ const RegisterBox = () => {
                     </div>
                     <div className="form-group">
                       <label htmlFor="surnameFormItem" className="form-label">
-                        Doğum Tarihi
+                        Birth Date
                       </label>
 
                       <div className="col-sm-10 mt-2">

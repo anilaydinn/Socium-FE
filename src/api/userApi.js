@@ -277,6 +277,25 @@ const getNearUsers = async (userId, latitude, longitude) => {
   return response.status === 200 ? response.data : null;
 };
 
+const deleteUserFriend = async (userId, friendId) => {
+  const apiBaseURL = window.API_BASE_URL;
+  const bearerToken = generateBearerToken();
+  console.log(bearerToken);
+  const response = await axios.get(
+    `${apiBaseURL}/user/users/${userId}/friends/${friendId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Authorization: bearerToken,
+      },
+    }
+  );
+
+  return response.status === 200 ? response.data : null;
+};
+
 export {
   registerUser,
   loginUser,
@@ -293,4 +312,5 @@ export {
   getAdminUser,
   activateUser,
   getNearUsers,
+  deleteUserFriend,
 };
