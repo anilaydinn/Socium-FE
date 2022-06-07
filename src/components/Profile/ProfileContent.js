@@ -212,12 +212,12 @@ const ProfileContent = (props) => {
                                   className={`ml-2 ${classes.geoLocationTextContainer}`}
                                 >
                                   <p className="m-0">
-                                    <Link
+                                    <a
                                       className={classes.link}
-                                      to={`/profile/${user.id}`}
+                                      href={`/profile/${user.id}`}
                                     >
                                       {user.name} {user.surname}
-                                    </Link>
+                                    </a>
                                   </p>
                                 </div>
                               </div>
