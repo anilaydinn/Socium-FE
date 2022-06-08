@@ -11,7 +11,9 @@ const Profile = (props) => {
     <div>
       <Header />
       {searchedUsers && searchedUsers.length > 0 && <SearchedUsers />}
-      {!searchedUsers && <ProfileContent />}
+      {(searchedUsers == [] ||
+        searchedUsers == undefined ||
+        searchedUsers.length == 0) && <ProfileContent />}
     </div>
   );
 };

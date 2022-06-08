@@ -1,13 +1,27 @@
 import React from "react";
+import { connect } from "react-redux";
 import FriendRequestList from "../components/FriendRequests/FriendRequestList";
 import Header from "../components/General/Header";
+import SearchedUsers from "../components/SearchedUsers/SearchedUsers";
 
-const FriendRequests = () => {
+const FriendRequests = (props) => {
+  const { searchedUsers } = props;
+
   return (
     <div>
       <Header />
-      <FriendRequestList />
+      {searchedUsers && searchedUsers.length > 0 && <SearchedUsers />}
+      {(searchedUsers == [] ||
+        searchedUsers == undefined ||
+        searchedUsers.length == 0) && <FriendRequestList />}
     </div>
   );
 };
-export default FriendRequests;
+
+const mapStateToProps = (state) => ({
+  searchedUsers: state.user.searchedUsers,
+});
+
+const mapDispatchToProps = (dispatch) => {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FriendRequests);
