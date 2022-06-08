@@ -3,6 +3,7 @@ import { Container, Table, Pagination, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { setAdminUsers } from "../../redux/actions/userActions";
+import dateFormat from "dateformat";
 
 const UsersList = (props) => {
   const { adminUsers, setAdminUsers } = props;
@@ -64,7 +65,7 @@ const UsersList = (props) => {
                 <td align="center">{user.name}</td>
                 <td align="center">{user.surname}</td>
                 <td align="center">{user.email}</td>
-                <td align="center">{user.birthDate}</td>
+                <td align="center">{dateFormat(user.birthDate)}</td>
                 <td align="center">
                   {user.description ? user.description : "-"}
                 </td>
@@ -79,8 +80,8 @@ const UsersList = (props) => {
                 <td align="center">
                   {user.isActivated ? "Activated" : "Not Activated"}
                 </td>
-                <td align="center">{user.createdAt}</td>
-                <td align="center">{user.updatedAt}</td>
+                <td align="center">{dateFormat(user.createdAt)}</td>
+                <td align="center">{dateFormat(user.updatedAt)}</td>
                 <td align="center">{user.latitude}</td>
                 <td align="center">{user.longitude}</td>
               </tr>

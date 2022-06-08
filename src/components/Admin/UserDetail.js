@@ -6,6 +6,7 @@ import {
 } from "../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
 import AdminUserFeed from "./AdminUserFeed";
+import dateFormat from "dateformat";
 
 const UserDetail = (props) => {
   const { id } = useParams();
@@ -34,7 +35,8 @@ const UserDetail = (props) => {
           <div className="col-md-12">
             <b>ID:</b> {adminUser && adminUser.id} <br />
             <b>Email:</b> {adminUser && adminUser.email} <br />
-            <b>BirthDate:</b> {adminUser && adminUser.birthDate} <br />
+            <b>BirthDate:</b> {adminUser && dateFormat(adminUser.birthDate)}{" "}
+            <br />
             <b>Description:</b>{" "}
             {adminUser && adminUser.description ? adminUser.description : "-"}{" "}
             <br />
@@ -42,7 +44,8 @@ const UserDetail = (props) => {
             <b>Is Activated:</b>{" "}
             {adminUser && adminUser.isActivated ? "Activated" : "Not Activated"}{" "}
             <br />
-            <b>Created At:</b> {adminUser && adminUser.createdAt} <br />
+            <b>Created At:</b> {adminUser && dateFormat(adminUser.createdAt)}{" "}
+            <br />
             <b>Latitude:</b> {adminUser && adminUser.latitude} <br />
             <b>Longitude:</b> {adminUser && adminUser.longitude} <br />
           </div>

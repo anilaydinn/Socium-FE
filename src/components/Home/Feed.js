@@ -7,6 +7,7 @@ import { getUserId } from "../../helpers/helpers";
 import { fetchPosts, fetchUserPosts } from "../../redux/actions/postActions";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import dateFormat from "dateformat";
 
 const useStyles = makeStyles({
   gridMargin: {
@@ -133,7 +134,9 @@ const Feed = (props) => {
                   <p>
                     {feed.user.name} {feed.user.surname}
                   </p>
-                  <p className="tx-11 text-muted">{feed.createdAt}</p>
+                  <p className="tx-11 text-muted">
+                    {dateFormat(feed.createdAt)}
+                  </p>
                 </div>
               </Link>
             </div>
@@ -278,7 +281,7 @@ const DynamicComments = (props) => {
                   <p className="card-text">{feed.comments[i].content}</p>
                   <p className="card-text">
                     <small className="text-muted">
-                      {feed.comments[i].createdAt}
+                      {dateFormat(feed.comments[i].createdAt)}
                     </small>
                   </p>
                 </div>
@@ -331,7 +334,9 @@ const DynamicComments = (props) => {
                   </Link>
                   <p className="card-text">{comment.content}</p>
                   <p className="card-text">
-                    <small className="text-muted">{comment.createdAt}</small>
+                    <small className="text-muted">
+                      {dateFormat(comment.createdAt)}
+                    </small>
                   </p>
                 </div>
               </div>
@@ -382,7 +387,9 @@ const DynamicComments = (props) => {
                   </Link>
                   <p className="card-text">{comment.content}</p>
                   <p className="card-text">
-                    <small className="text-muted">{comment.createdAt}</small>
+                    <small className="text-muted">
+                      {dateFormat(comment.createdAt)}
+                    </small>
                   </p>
                 </div>
               </div>

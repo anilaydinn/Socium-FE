@@ -9,6 +9,7 @@ import { fetchUserPosts } from "../../redux/actions/postActions";
 import { fetchUser } from "../../redux/actions/userActions";
 import { useParams } from "react-router-dom";
 import { sendFriendRequest } from "../../api";
+import dateFormat from "dateformat";
 
 const useStyles = makeStyles({
   link: {
@@ -160,14 +161,16 @@ const OtherProfileContent = (props) => {
                   <label className="tx-11 font-weight-bold mb-0 text-uppercase">
                     Joined:
                   </label>
-                  <p className="text-muted">{user && user.createdAt}</p>
+                  <p className="text-muted">
+                    {user && dateFormat(user.createdAt)}
+                  </p>
                 </div>
                 {user && user.birthDate && (
                   <div className="mt-3">
                     <label className="tx-11 font-weight-bold mb-0 text-uppercase">
                       Birth Date:
                     </label>
-                    <p className="text-muted">{user.birthDate}</p>
+                    <p className="text-muted">{dateFormat(user.birthDate)}</p>
                   </div>
                 )}
                 <div className="mt-3">
