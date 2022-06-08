@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Popover } from "react-bootstrap";
 import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { likePost, sendCommentToPost, getWhoLikes } from "../../api";
@@ -53,6 +53,13 @@ const useStyles = makeStyles({
     border: "none",
     marginRight: "10px",
   },
+  link: {
+    textDecoration: "unset",
+    color: "unset",
+    "&:hover": {
+      color: "unset",
+    },
+  },
 });
 
 const Feed = (props) => {
@@ -60,13 +67,9 @@ const Feed = (props) => {
   const { col, feed, fetchPosts, fetchUserPosts, user } = props;
   const classes = useStyles();
 
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const [content, setContent] = useState("");
   const [isSeeMore, setIsSeeMore] = useState(false);
+  const [whoLikes, setWhoLikes] = useState([]);
 
   const handleLikePost = async () => {
     const resp = await likePost(feed.id, getUserId());
@@ -84,7 +87,23 @@ const Feed = (props) => {
       whoLikes += feed.whoLikesUserIds[i] + ", ";
     }
     const resp = await getWhoLikes(feed.id, feed.whoLikesUserIds);
+    setWhoLikes(resp);
   };
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3">Likes</Popover.Header>
+      <Popover.Body>
+        {whoLikes &&
+          whoLikes.map((likeUser) => (
+            <a className={classes.link} href={`/profile/${likeUser.id}`}>
+              {likeUser.name} {likeUser.surname}
+            </a>
+          ))}
+        {!whoLikes || (whoLikes.length === 0 && <p>No likes</p>)}
+      </Popover.Body>
+    </Popover>
+  );
 
   const handleSendComment = async (e) => {
     e.preventDefault();
@@ -148,12 +167,14 @@ const Feed = (props) => {
         </div>
         <div className={`${classes.cardFooter}`}>
           <div className="d-flex post-actions">
-            <span
-              style={{ cursor: "pointer" }}
-              onClick={() => handleGetWhoLikes()}
-            >
-              {feed.whoLikesUserIds && feed.whoLikesUserIds.length}
-            </span>
+            <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => handleGetWhoLikes()}
+              >
+                {feed.whoLikesUserIds && feed.whoLikesUserIds.length}
+              </span>
+            </OverlayTrigger>
             <a
               className="d-flex align-items-center text-muted mr-5"
               onClick={() => handleLikePost()}
