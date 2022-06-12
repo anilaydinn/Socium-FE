@@ -13,7 +13,7 @@ const AboutBox = () => {
             <p className="font-italic text-muted text-center">
               Socium is a social media platform where you can communicate with
               your friends and people close to you and share your best moments
-              with them as videos or pictures.
+              with them as pictures.
             </p>
           </div>
         </div>
