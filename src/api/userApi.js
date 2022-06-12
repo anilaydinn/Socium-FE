@@ -49,9 +49,11 @@ const loginUser = async (email, password) => {
 
 const forgotPassword = async (email) => {
   const apiBaseURL = window.API_BASE_URL;
-  await axios.post(`${apiBaseURL}/api/forgotPassword`, {
+  const response = await axios.post(`${apiBaseURL}/api/forgotPassword`, {
     email: email,
   });
+
+  return response;
 };
 
 const resetPassword = async (id, password) => {

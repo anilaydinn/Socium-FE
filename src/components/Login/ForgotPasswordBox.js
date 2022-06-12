@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { Button } from "react-bootstrap";
+import { Button, Alert } from "react-bootstrap";
 import { forgotPassword as forgotPasswordApi } from "../../api/userApi";
 
 const useStyles = makeStyles({
@@ -32,10 +32,16 @@ const ForgotPasswordBox = () => {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
+  const [forgotPasswordSuccessAlert, setForgotPasswordSuccessAlert] =
+    useState(false);
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    await forgotPasswordApi(email);
+    const resp = await forgotPasswordApi(email);
+    console.log(resp.status);
+    if (resp.status == 200) {
+      setForgotPasswordSuccessAlert(true);
+    }
   };
 
   return (
@@ -77,6 +83,11 @@ const ForgotPasswordBox = () => {
                       </div>
                     </div>
                   </form>
+                  {forgotPasswordSuccessAlert && (
+                    <Alert key={"success"} variant={"success"}>
+                      Please check <b>{email}</b> email to change your password!
+                    </Alert>
+                  )}
                 </div>
               </div>
             </div>
