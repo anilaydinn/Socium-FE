@@ -38,8 +38,7 @@ const ForgotPasswordBox = () => {
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     const resp = await forgotPasswordApi(email);
-    console.log(resp.status);
-    if (resp.status == 200) {
+    if (resp) {
       setForgotPasswordSuccessAlert(true);
     }
   };

@@ -53,7 +53,7 @@ const forgotPassword = async (email) => {
     email: email,
   });
 
-  return response;
+  return response.status == 200 ? true : false;
 };
 
 const resetPassword = async (id, password) => {
