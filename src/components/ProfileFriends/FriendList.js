@@ -33,9 +33,9 @@ const FriendList = (props) => {
                 <div className="row g-0">
                   {friend.profileImage && (
                     <div className="col-md-1 d-flex align-items-center justify-content-center">
-                      <Link
+                      <a
                         style={{ textDecoration: "none", color: "black" }}
-                        to={`/profile/${friend.id}`}
+                        href={`/profile/${friend.id}`}
                       >
                         <img
                           src={friend.profileImage}
@@ -43,17 +43,17 @@ const FriendList = (props) => {
                           height={37}
                           width={37}
                         />
-                      </Link>
+                      </a>
                     </div>
                   )}
                   <div className="col-md-8">
                     <div className="card-body">
-                      <Link
+                      <a
                         style={{ textDecoration: "none", color: "black" }}
-                        to={`/profile/${friend.id}`}
+                        href={`/profile/${friend.id}`}
                       >
                         <h6 className="card-title">{`${friend.name} ${friend.surname}`}</h6>
-                      </Link>
+                      </a>
                       <a href={`/profile/${friend.id}/messages`}>
                         <button
                           style={{ marginRight: "5px" }}
