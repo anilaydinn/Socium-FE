@@ -237,7 +237,7 @@ const Feed = (props) => {
               <textarea
                 className="form-control"
                 style={{ height: "70px", marginBottom: "10px" }}
-                placeholder="Whats on your mind..."
+                placeholder="Make comment..."
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
               ></textarea>
