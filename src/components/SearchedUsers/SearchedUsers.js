@@ -19,9 +19,9 @@ const SearchedUsers = (props) => {
                 <div className="row g-0">
                   {user.profileImage && (
                     <div className="col-md-1 d-flex align-items-center justify-content-center">
-                      <Link
+                      <a
                         style={{ textDecoration: "none", color: "black" }}
-                        to={"/"}
+                        href={"/profile/" + user.id}
                       >
                         <img
                           src={user.profileImage}
@@ -29,17 +29,17 @@ const SearchedUsers = (props) => {
                           height={37}
                           width={37}
                         />
-                      </Link>
+                      </a>
                     </div>
                   )}
                   <div className="col-md-8">
                     <div className="card-body">
-                      <Link
+                      <a
                         style={{ textDecoration: "none", color: "black" }}
-                        to={"/profile/" + user.id}
+                        href={"/profile/" + user.id}
                       >
                         <h6 className="card-title">{`${user.name} ${user.surname}`}</h6>
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>
