@@ -1,21 +1,11 @@
 import React from "react";
-import {
-  Navbar,
-  Container,
-  Nav,
-  Button,
-  Form,
-  FormControl,
-} from "react-bootstrap";
+import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { isLogin } from "../../helpers/helpers";
 import { useCookies } from "react-cookie";
 import { connect } from "react-redux";
-import {
-  fetchUserWithFilter,
-  resetSearchedUsers,
-} from "../../redux/actions/userActions";
+import { resetSearchedUsers } from "../../redux/actions/userActions";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -44,16 +34,11 @@ const Header = (props) => {
   const classes = useStyles();
   const [cookies, setCookie, removeCookie] = useCookies(["user-token"]);
 
-  const { fetchUserWithFilter, resetSearchedUsers } = props;
+  const { resetSearchedUsers } = props;
 
   const handleLogout = () => {
     removeCookie("user-token", { path: "/" });
     window.location.href = "/";
-  };
-
-  const handleSearchUser = (e) => {
-    e.preventDefault();
-    fetchUserWithFilter(e.target.value);
   };
 
   return (
@@ -92,17 +77,6 @@ const Header = (props) => {
               </Link>
             </Nav.Link>
           </Nav>
-          {isLogin() && (
-            <Form className="d-flex" style={{ marginRight: "auto" }}>
-              <FormControl
-                type="search"
-                placeholder="Search users"
-                className="me-2"
-                aria-label="Search"
-                onChange={(e) => handleSearchUser(e)}
-              />
-            </Form>
-          )}
           {!isLogin() ? (
             <div className={classes.buttonsContainer}>
               <Link className={classes.link} to={"/login"}>
@@ -132,7 +106,6 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserWithFilter: (filter) => dispatch(fetchUserWithFilter(filter)),
     resetSearchedUsers: () => dispatch(resetSearchedUsers()),
   };
 };
