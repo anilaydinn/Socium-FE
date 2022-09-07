@@ -54,6 +54,9 @@ const Header = () => {
           <Nav className="me-auto">
             <Nav.Link href="/admin/contacts">Contact Messages</Nav.Link>
           </Nav>
+          <Nav>
+            <Nav.Link href="/">Go Socium Home</Nav.Link>
+          </Nav>
           {isLogin() && (
             <div className={classes.logoutButtonContainer}>
               <button
