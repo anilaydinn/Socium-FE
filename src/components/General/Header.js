@@ -28,6 +28,9 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "flex-end",
   },
+  navCollapseContainer: {
+    maxHeight: "180px",
+  },
 });
 
 const Header = (props) => {
@@ -50,8 +53,7 @@ const Header = (props) => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
+            className={`me-auto my-2 my-lg-0 ${classes.navCollapseContainer}`}
             navbarScroll
           >
             <Nav.Link onClick={() => resetSearchedUsers()}>
