@@ -16,6 +16,7 @@ import {
   fetchUserWithFilter,
   resetSearchedUsers,
 } from "../../redux/actions/userActions";
+import { useMediaQuery } from "react-responsive";
 
 const useStyles = makeStyles({
   buttonsContainer: {
@@ -46,6 +47,8 @@ const useStyles = makeStyles({
 const Header = (props) => {
   const classes = useStyles();
   const [cookies, setCookie, removeCookie] = useCookies(["user-token"]);
+
+  const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
 
   const { fetchUserWithFilter, resetSearchedUsers } = props;
 
@@ -94,7 +97,7 @@ const Header = (props) => {
               </Link>
             </Nav.Link>
           </Nav>
-          {isLogin() && (
+          {!isMobile && isLogin() && (
             <Form className="d-flex" style={{ marginRight: "auto" }}>
               <FormControl
                 type="search"

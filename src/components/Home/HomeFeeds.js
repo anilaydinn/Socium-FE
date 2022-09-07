@@ -6,9 +6,21 @@ import { getUserId, isLogin } from "../../helpers/helpers";
 import { fetchUser } from "../../redux/actions/userActions";
 import { fetchPosts } from "../../redux/actions/postActions";
 import SearchedUsers from "../SearchedUsers/SearchedUsers";
+import { useMediaQuery } from "react-responsive";
+import { Form, FormControl } from "react-bootstrap";
+import { fetchUserWithFilter } from "../../redux/actions/userActions";
 
 const HomeFeeds = (props) => {
-  const { fetchPosts, feeds, fetchUser, user, searchedUsers } = props;
+  const {
+    fetchPosts,
+    feeds,
+    fetchUser,
+    user,
+    searchedUsers,
+    fetchUserWithFilter,
+  } = props;
+
+  const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
 
   useEffect(() => {
     fetchUser(getUserId());
@@ -20,8 +32,24 @@ const HomeFeeds = (props) => {
     }
   }, [user]);
 
+  const handleSearchUser = (e) => {
+    e.preventDefault();
+    fetchUserWithFilter(e.target.value);
+  };
+
   return (
     <div className="row justify-content-center d-block mt-3">
+      {isMobile && isLogin() && (
+        <Form className="d-flex mb-3" style={{ marginRight: "auto" }}>
+          <FormControl
+            type="search"
+            placeholder="Search users"
+            className="me-2"
+            aria-label="Search"
+            onChange={(e) => handleSearchUser(e)}
+          />
+        </Form>
+      )}
       {isLogin() && searchedUsers && searchedUsers.length == 0 && (
         <CreateFeed col="6" />
       )}
@@ -47,6 +75,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchUserWithFilter: (filter) => dispatch(fetchUserWithFilter(filter)),
     fetchPosts: (userId, friendIds) => dispatch(fetchPosts(userId, friendIds)),
     fetchUser: (userId) => dispatch(fetchUser(userId)),
   };
